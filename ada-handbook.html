@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ADA — Players &amp; Gamemaster Handbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,600&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0c1014;
+    --bg-panel:#12171d;
+    --bg-panel-2:#161d24;
+    --line:#26313b;
+    --line-soft:#1c252d;
+    --text:#dbe4ea;
+    --text-dim:#8da0ad;
+    --text-faint:#5d6e7a;
+    --cyan:#5fd8d0;
+    --amber:#e0a458;
+    --red:#c4604f;
+    --serif:'Playfair Display', Georgia, serif;
+    --sans:'DM Sans', -apple-system, sans-serif;
+    --mono:'DM Mono', 'Courier New', monospace;
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    font-size:15.5px;
+    line-height:1.65;
+  }
+
+  .page{
+    max-width:880px;
+    margin:0 auto;
+    padding:0 32px 120px;
+  }
+
+  /* ===== Cover ===== */
+  .cover{
+    min-height:92vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:flex-start;
+    border-bottom:1px solid var(--line);
+    position:relative;
+    padding:0 32px;
+    background:
+      radial-gradient(circle at 18% 22%, rgba(95,216,208,0.07), transparent 45%),
+      radial-gradient(circle at 82% 78%, rgba(224,164,88,0.06), transparent 45%);
+  }
+  .cover-eyebrow{
+    font-family:var(--mono);
+    letter-spacing:0.35em;
+    text-transform:uppercase;
+    color:var(--cyan);
+    font-size:11px;
+    margin-bottom:18px;
+  }
+  .cover-title{
+    font-family:var(--serif);
+    font-weight:900;
+    font-size:clamp(64px,12vw,128px);
+    line-height:0.92;
+    margin:0;
+    letter-spacing:-0.01em;
+    background:linear-gradient(135deg,#f3f6f8 0%, #c9d6dc 55%, #7d8d97 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  .cover-sub{
+    font-size:18px;
+    color:var(--text-dim);
+    margin-top:18px;
+    max-width:520px;
+    font-style:italic;
+    font-family:var(--serif);
+  }
+  .cover-meta{
+    margin-top:48px;
+    display:flex;
+    gap:28px;
+    font-family:var(--mono);
+    font-size:11.5px;
+    color:var(--text-faint);
+    text-transform:uppercase;
+    letter-spacing:0.12em;
+  }
+  .cover-meta span b{color:var(--amber); font-weight:500;}
+
+  /* ===== TOC ===== */
+  .toc{
+    padding:64px 0 40px;
+    border-bottom:1px solid var(--line);
+  }
+  .toc h2{
+    font-family:var(--mono);
+    text-transform:uppercase;
+    letter-spacing:0.25em;
+    font-size:12px;
+    color:var(--text-faint);
+    margin:0 0 28px;
+  }
+  .toc-cols{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:36px;
+  }
+  .toc-part-label{
+    font-family:var(--mono);
+    font-size:10.5px;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color:var(--cyan);
+    margin:0 0 10px;
+  }
+  .toc ol{
+    list-style:none;
+    margin:0 0 28px;
+    padding:0;
+  }
+  .toc li a{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    padding:7px 0;
+    border-bottom:1px dotted var(--line-soft);
+    color:var(--text);
+    text-decoration:none;
+    font-size:14px;
+  }
+  .toc li a:hover{color:var(--cyan);}
+  .toc li a .num{
+    font-family:var(--mono);
+    color:var(--text-faint);
+    font-size:12px;
+  }
+
+  /* ===== Part dividers ===== */
+  .part-divider{
+    margin:90px 0 50px;
+    padding:46px 0 0;
+    border-top:2px solid var(--line);
+  }
+  .part-divider .part-eyebrow{
+    font-family:var(--mono);
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    font-size:11px;
+    color:var(--cyan);
+    margin-bottom:10px;
+  }
+  .part-divider h1{
+    font-family:var(--serif);
+    font-weight:900;
+    font-size:48px;
+    margin:0 0 12px;
+    color:#f1f5f7;
+  }
+  .part-divider p{
+    color:var(--text-dim);
+    max-width:560px;
+    font-size:15px;
+  }
+
+  /* ===== Chapters ===== */
+  .chapter{
+    padding-top:74px;
+    border-top:1px solid var(--line-soft);
+    scroll-margin-top:20px;
+  }
+  .chapter:first-of-type{border-top:none;}
+  .chapter-kicker{
+    font-family:var(--mono);
+    color:var(--text-faint);
+    text-transform:uppercase;
+    letter-spacing:0.2em;
+    font-size:11px;
+    margin-bottom:8px;
+  }
+  .chapter h1{
+    font-family:var(--serif);
+    font-size:38px;
+    font-weight:700;
+    margin:0 0 28px;
+    color:#f1f5f7;
+    display:flex;
+    align-items:baseline;
+    gap:16px;
+  }
+  .chapter h1 .chnum{
+    font-family:var(--serif);
+    font-style:italic;
+    color:var(--amber);
+    font-weight:500;
+    font-size:26px;
+  }
+
+  h2{
+    font-family:var(--sans);
+    font-weight:700;
+    font-size:19px;
+    color:var(--cyan);
+    margin:40px 0 14px;
+    padding-bottom:8px;
+    border-bottom:1px solid var(--line);
+  }
+  h3{
+    font-family:var(--sans);
+    font-weight:700;
+    font-size:15px;
+    color:#eef1f3;
+    margin:26px 0 10px;
+  }
+  p{margin:0 0 14px;}
+  ul,ol{margin:0 0 16px; padding-left:22px;}
+  li{margin-bottom:6px;}
+  strong{color:#f1f5f7; font-weight:700;}
+  em.flavor{
+    display:block;
+    font-family:var(--serif);
+    font-style:italic;
+    color:var(--text-dim);
+    font-size:15.5px;
+    margin:6px 0 18px;
+  }
+
+  a{color:var(--cyan);}
+
+  /* sentence-fill examples */
+  .examples{
+    background:var(--bg-panel);
+    border:1px solid var(--line);
+    border-left:3px solid var(--amber);
+    padding:14px 18px;
+    margin:16px 0 20px;
+    border-radius:2px;
+  }
+  .examples p{margin:0 0 6px; font-family:var(--mono); font-size:13.5px; color:var(--text-dim);}
+  .examples p:last-child{margin-bottom:0;}
+
+  /* callouts */
+  .callout{
+    background:var(--bg-panel);
+    border:1px solid var(--line);
+    border-left:3px solid var(--cyan);
+    padding:16px 20px;
+    margin:20px 0;
+    border-radius:2px;
+  }
+  .callout-label{
+    font-family:var(--mono);
+    text-transform:uppercase;
+    letter-spacing:0.15em;
+    font-size:10.5px;
+    color:var(--cyan);
+    margin-bottom:8px;
+  }
+  .callout.gm{border-left-color:var(--red);}
+  .callout.gm .callout-label{color:var(--red);}
+  .callout p:last-child{margin-bottom:0;}
+
+  /* tables */
+  table{
+    width:100%;
+    border-collapse:collapse;
+    margin:18px 0 22px;
+    font-size:14px;
+    background:var(--bg-panel);
+    border:1px solid var(--line);
+  }
+  th,td{
+    padding:10px 14px;
+    border-bottom:1px solid var(--line-soft);
+    text-align:left;
+    vertical-align:top;
+  }
+  th{
+    font-family:var(--mono);
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    font-size:11px;
+    color:var(--amber);
+    border-bottom:1px solid var(--line);
+    background:var(--bg-panel-2);
+  }
+  tr:last-child td{border-bottom:none;}
+  td .out{font-weight:700; color:#f1f5f7;}
+  .out-success{color:#7fd8a0;}
+  .out-cost{color:var(--amber);}
+  .out-fail{color:var(--text-dim);}
+  .out-crit{color:var(--red);}
+
+  .die-tag{
+    font-family:var(--mono);
+    font-size:12px;
+    padding:1px 7px;
+    border-radius:10px;
+    border:1px solid var(--line);
+    white-space:nowrap;
+  }
+  .die-white{color:#f1f5f7; border-color:#5b6b76;}
+  .die-control{color:var(--red); border-color:#5e3a34;}
+
+  /* skill/approach pill grid */
+  .pill-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
+    gap:8px;
+    margin:14px 0 22px;
+  }
+  .pill{
+    font-family:var(--mono);
+    font-size:13px;
+    background:var(--bg-panel);
+    border:1px solid var(--line);
+    padding:7px 12px;
+    border-radius:3px;
+    color:var(--text-dim);
+  }
+
+  /* quick ref grid (appendix) */
+  .qref-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+    margin-top:10px;
+  }
+  .qref-card{
+    background:var(--bg-panel);
+    border:1px solid var(--line);
+    padding:18px 20px;
+    border-radius:3px;
+  }
+  .qref-card h3{margin-top:0; color:var(--cyan);}
+  .qref-card dl{margin:0;}
+  .qref-card dt{font-family:var(--mono); font-size:12.5px; color:var(--amber); margin-top:10px;}
+  .qref-card dd{margin:2px 0 0; font-size:13.5px; color:var(--text-dim);}
+
+  .footnote{
+    font-size:12.5px;
+    color:var(--text-faint);
+    font-style:italic;
+    margin-top:-4px;
+  }
+
+  hr.div{
+    border:none;
+    border-top:1px solid var(--line-soft);
+    margin:34px 0;
+  }
+
+  @media (max-width:680px){
+    .toc-cols{grid-template-columns:1fr;}
+    .qref-grid{grid-template-columns:1fr;}
+    .cover-meta{flex-direction:column; gap:8px;}
+  }
+
+  @media print{
+    body{background:white; color:#111;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ============ COVER ============ -->
+  <div class="cover">
+    <div class="cover-eyebrow">Players &amp; Gamemaster Handbook</div>
+    <h1 class="cover-title">ADA</h1>
+    <p class="cover-sub">A dice-pool system for proactive heroes building advantage against a world that won't hold still.</p>
+    <div class="cover-meta">
+      <span>Edition <b>1.0 Draft</b></span>
+      <span>Dice <b>d10 Pool</b></span>
+      <span>Genre <b>Setting-Agnostic</b></span>
+    </div>
+  </div>
+
+  <!-- ============ TABLE OF CONTENTS ============ -->
+  <div class="toc">
+    <h2>Contents</h2>
+    <div class="toc-cols">
+      <div>
+        <p class="toc-part-label">Part One — Players</p>
+        <ol>
+          <li><a href="#ch1"><span>What is ADA?</span><span class="num">01</span></a></li>
+          <li><a href="#ch2"><span>Anatomy of a Character</span><span class="num">02</span></a></li>
+          <li><a href="#ch3"><span>Core Mechanics</span><span class="num">03</span></a></li>
+          <li><a href="#ch4"><span>Creating a Character</span><span class="num">04</span></a></li>
+          <li><a href="#ch5"><span>Equipment &amp; Weapons</span><span class="num">05</span></a></li>
+          <li><a href="#ch6"><span>Combat &amp; Consequences</span><span class="num">06</span></a></li>
+        </ol>
+      </div>
+      <div>
+        <p class="toc-part-label">Part Two — Gamemasters</p>
+        <ol>
+          <li><a href="#ch7"><span>NPCs &amp; Challenge Ratings</span><span class="num">07</span></a></li>
+          <li><a href="#ch8"><span>Drive &amp; Control</span><span class="num">08</span></a></li>
+          <li><a href="#ch9"><span>Reference Tables</span><span class="num">09</span></a></li>
+          <li><a href="#appendix"><span>Quick Reference</span><span class="num">QR</span></a></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ PART ONE DIVIDER ============ -->
+  <div class="part-divider">
+    <div class="part-eyebrow">Part One</div>
+    <h1>The Player's Handbook</h1>
+    <p>Everything you need to build a character, understand the dice, and act decisively at the table.</p>
+  </div>
+
+  <!-- ============ CHAPTER 1 ============ -->
+  <section class="chapter" id="ch1">
+    <div class="chapter-kicker">Chapter One</div>
+    <h1><span class="chnum">01</span>What is ADA?</h1>
+
+    <p>ADA is a tabletop roleplaying system built to drop into any setting. It's designed around proactive heroes — characters who go looking for trouble and cooperate to turn the odds in their favor rather than waiting to react to whatever the GM throws at them.</p>
+
+    <h2>Design Goals</h2>
+    <ul>
+      <li>Strike a balance between narrative freedom and ramping complexity.</li>
+      <li>Minimize arithmetic by letting dice values represent game concepts directly, instead of stacking modifiers.</li>
+      <li>Stay generic enough to fit any story setting, from noir streets to deep space.</li>
+    </ul>
+
+    <h2>Inspirations</h2>
+    <p>ADA draws on six systems, borrowing different pieces from each: the dice-pool and aspect-driven storytelling of <strong>Cortex Prime</strong> and <strong>FATE</strong>, the stress-and-consequence framework shared by <strong>Daggerheart</strong> and <strong>Vampire: the Masquerade</strong>, and the streamlined, table-friendly resolution found in <strong>Ironsworn</strong> and <strong>Genesys</strong>.</p>
+  </section>
+
+  <!-- ============ CHAPTER 2 ============ -->
+  <section class="chapter" id="ch2">
+    <div class="chapter-kicker">Chapter Two</div>
+    <h1><span class="chnum">02</span>Anatomy of a Character</h1>
+
+    <p>Every character in ADA is built from three layers: Aspects, Skills, and Approaches.</p>
+
+    <ul>
+      <li><strong>Aspects</strong> — sentences that are true about your character.</li>
+      <li><strong>Skills</strong> — a curated list of things your character can <em>do</em>.</li>
+      <li><strong>Approaches</strong> — <em>how</em> your character chooses to do them.</li>
+    </ul>
+
+    <h2>Aspects</h2>
+    <p>Every character has a High Concept, a Knack, and a Trouble.</p>
+
+    <h3>High Concept</h3>
+    <p>A general description of your character's identity — usually their vocation, or some intrinsic part of who they are. It represents your baseline competence and is always represented by <strong>1 player die</strong>.</p>
+
+    <h3>Knack</h3>
+    <p>An extension of your High Concept: a specific pocket of skill or knowledge that distinguishes your character further. Knacks start at <strong>1 player die</strong> and can grow to a maximum of 3 through play.</p>
+
+    <h3>Trouble</h3>
+    <p>Your character's Achilles' heel — something they had to endure, or are still afraid to face. Trouble starts at <strong>2 control dice</strong> and can grow to a maximum of 3.</p>
+
+    <div class="callout">
+      <div class="callout-label">High Concept Is Non-Negotiable</div>
+      <p>Your High Concept die is rolled on every pool, full stop — it doesn't matter whether your Knack applies, your Trouble applies, or neither does. Knack and Trouble only ever <em>add to</em> High Concept; they never replace it. See Chapter 3 for how the full pool comes together.</p>
+    </div>
+
+    <h2>Skills</h2>
+    <p>Skills let your character affect the world. Each skill is rated from untrained to master:</p>
+    <table>
+      <tr><th>Rank</th><th>Dice</th></tr>
+      <tr><td>Untrained</td><td>0 player dice</td></tr>
+      <tr><td>Novice</td><td>1 player die</td></tr>
+      <tr><td>Expert</td><td>2 player dice</td></tr>
+      <tr><td>Master</td><td>3 player dice</td></tr>
+    </table>
+    <p>The default skill list:</p>
+    <div class="pill-grid">
+      <span class="pill">Academics</span><span class="pill">Athletics</span><span class="pill">Burglary</span>
+      <span class="pill">Contacts</span><span class="pill">Crafts</span><span class="pill">Drive</span>
+      <span class="pill">Empathy</span><span class="pill">Fight</span><span class="pill">Investigate</span>
+      <span class="pill">Lore</span><span class="pill">Notice</span><span class="pill">Persuade</span>
+      <span class="pill">Resources</span><span class="pill">Shoot</span>
+    </div>
+    <p><strong>Physique</strong> and <strong>Will</strong> are tracked separately from the rest of the skill list — they anchor your two stress tracks instead of an action roll. See Chapter 6.</p>
+
+    <h2>Approaches</h2>
+    <p>Approaches describe <em>how</em> you apply a skill, and use the same rank-and-dice scale as skills above.</p>
+    <div class="pill-grid">
+      <span class="pill">Careful</span><span class="pill">Clever</span><span class="pill">Flashy</span>
+      <span class="pill">Forceful</span><span class="pill">Quick</span><span class="pill">Sneaky</span>
+    </div>
+
+    <h2>Equipment &amp; Weapons</h2>
+    <p>Weapons, armor, and gear represent advantageous circumstances that bolster a roll. They're covered in full in Chapter 5.</p>
+  </section>
+
+  <!-- ============ CHAPTER 3 ============ -->
+  <section class="chapter" id="ch3">
+    <div class="chapter-kicker">Chapter Three</div>
+    <h1><span class="chnum">03</span>Core Mechanics</h1>
+
+    <p>Every action a character takes in ADA boils down to one of four moves: <strong>Overcome</strong>, <strong>Aid</strong>, <strong>Attack</strong>, or <strong>Defend</strong>. All four share the same dice engine, described below.</p>
+
+    <h2>Custom Dice (Optional)</h2>
+    <p>ADA can be run with numbered d10s, or with custom dice that show colors instead of numbers:</p>
+    <table>
+      <tr><th>Pool</th><th>Color</th><th>Meaning</th></tr>
+      <tr><td>Player dice</td><td>Blue</td><td>6 through 9</td></tr>
+      <tr><td>Player dice</td><td>Yellow</td><td>10 (explodes)</td></tr>
+      <tr><td>Control dice</td><td>Purple</td><td>6 through 9</td></tr>
+      <tr><td>Control dice</td><td>Red</td><td>1 (cancels a hit)</td></tr>
+    </table>
+
+    <h2>Building the Pool</h2>
+    <p>Your <strong>High Concept</strong> die — 1 player d10 — is always part of the pool, no exceptions. Then decide whether your <strong>Knack</strong> or your <strong>Trouble</strong> applies to the situation (never both): add your Knack's player dice on top of High Concept, or add 2 control dice for Trouble. Add one relevant <strong>Skill</strong> and one relevant <strong>Approach</strong>, plus any dice granted by equipment, armor, or banked Advantage (see below).</p>
+    <p class="footnote">Pool = High Concept (always) + Knack <em>or</em> Trouble (if either applies) + Skill + Approach + gear / banked Advantage.</p>
+
+    <p>The GM then sets a <strong>Challenge Rating (CR)</strong> from 1–6, which is added to the pool as that many <strong>control dice</strong>.</p>
+
+    <h2>Rolling</h2>
+    <p>Roll the full pool — player dice and control dice together.</p>
+    <ul>
+      <li>A roll of <strong>6–10</strong> on a player die is a <strong>hit</strong>. A player die that rolls a <strong>10</strong> explodes — grab another d10 of that type and roll it too, adding any further hits.</li>
+      <li>A roll of <strong>6–10</strong> on a control die is also a hit, but control dice never explode.</li>
+      <li>A roll of <strong>1</strong> on a control die cancels a hit — player hits are cancelled first, then control hits.</li>
+    </ul>
+    <p>To succeed, total hits must equal or exceed the CR. If the CR is 0, at least 1 hit is still required.</p>
+
+    <h3>Outcomes</h3>
+    <p>Once cancellations are resolved, compare player hits to control hits to find your result. Ties always favor the player.</p>
+    <table>
+      <tr><th>Result</th><th>Condition</th></tr>
+      <tr><td class="out out-success">Straight Success</td><td>Hits meet or beat the CR, and player hits exceed control hits.</td></tr>
+      <tr><td class="out out-cost">Success at a Cost</td><td>Hits meet or beat the CR, but control hits exceed player hits.</td></tr>
+      <tr><td class="out out-fail">Failure</td><td>Hits fall short of the CR, and player hits meet or exceed control hits.</td></tr>
+      <tr><td class="out out-crit">Critical Failure</td><td>Hits fall short of the CR, and control hits exceed player hits.</td></tr>
+    </table>
+    <p>Announce your result by name at the table — it tells everyone, including the GM, exactly what happens next.</p>
+
+    <h2>Extra Hits &amp; Advantage</h2>
+    <p>Hits don't go to waste once you've already cleared the CR. For every hit rolled beyond the CR, you may <strong>bank an Advantage die</strong> — a die that you or an ally can add to a future roll where it would help.</p>
+    <p>The color of a banked Advantage die is decided by your outcome, not by choice: a <span class="die-tag die-white">white player die</span> on a Straight Success, a <span class="die-tag die-control">red control die</span> on a Success at a Cost.</p>
+
+    <div class="examples">
+      <p>Lena rolls 5 player dice against a CR 2 (2 control dice). She lands 4 hits — well past the CR of 2, with player hits beating control hits.</p>
+      <p>Result: <strong>Straight Success</strong>, with 2 hits to spare. Lena banks 2 white Advantage dice. She names the advantage ("Curtain's on fire") and it's available to anyone at the table who can plausibly use it.</p>
+    </div>
+
+    <p>On a Failure or Critical Failure, no Advantage die is banked. Advantage dice are a player-side resource only — the GM never adds one to a Challenge Rating or control pool. If a Critical Failure should twist the scene against the player, that's what Control tokens are for, not Advantage dice.</p>
+
+    <h2>Aid</h2>
+    <p>Aiding another character works exactly like the roll above, except any Advantage die you generate is handed straight to the player you're aiding instead of banked for later.</p>
+
+    <h2>Attack</h2>
+    <p>An Attack uses the same roll. Every hit beyond the CR can be spent as <strong>+1 damage</strong>, banked as an <strong>Advantage die</strong>, or split between the two — your call, made at the table when you announce your result.</p>
+
+    <h2>Defend</h2>
+    <p>Defend is rolled whenever an attacker or the world tries to land a Consequence on you. It works exactly like Overcome: assemble your pool from Aspects, Skill, and Approach, add any relevant gear, and roll against the attacker's hits. See Chapter 6 for what happens on a failed Defense.</p>
+
+    <h2>Drive</h2>
+    <p>Drive represents your character pushing the story forward. You start each session with <strong>2 Drive tokens</strong>, and gain one whenever you roll a Straight Success. Spend a Drive token to reroll any single die. Drive tokens carry over between sessions — there's currently no hard cap, so groups that want one should set their own table limit.</p>
+  </section>
+
+  <!-- ============ CHAPTER 4 ============ -->
+  <section class="chapter" id="ch4">
+    <div class="chapter-kicker">Chapter Four</div>
+    <h1><span class="chnum">04</span>Creating a Character</h1>
+
+    <p>Start broad and narrow down: define your Aspects first, then fill in Skills and Approaches. Good Aspects make the rest of the sheet fill itself in.</p>
+
+    <h2>High Concept</h2>
+    <p>The most important sentence about your character — your answer when a friend asks "what are you playing tonight?" A simple template: <em>"I am an adjective noun who verbs."</em></p>
+    <div class="examples">
+      <p>"A Hotheaded Space-Cowboy who Smuggles Spice"</p>
+      <p>"An Aloof Detective who Solves Criminal Mysteries"</p>
+      <p>"A Determined Inquisitor who Hunts Alien Filth"</p>
+    </div>
+
+    <h2>Knacks</h2>
+    <p>Knacks sharpen a High Concept that's still a little vague, showing off something your character is great at. They can be concrete and concise, or a hard-won lesson from the past.</p>
+    <div class="examples">
+      <p>"3-Time Champion of the Gherto Space Race"</p>
+      <p>"Eidetic Memory" &middot; "Powered by Faith"</p>
+      <p>"Never Trust a Knife-Ear" &middot; "My Word Is My Bond" &middot; "I Owe Bertrand My Life"</p>
+    </div>
+    <p>You can have up to 3 Knacks, but start with only 1, represented by <strong>1 player die</strong>. Each story milestone adds a new Knack tied to what your character just accomplished — "Move Like a Panther," say, after a successful heist.</p>
+
+    <h2>Trouble</h2>
+    <p>The point of friction between your character and the world — a bad decision, or a good decision with terrible consequences. It's the fulcrum that drives them to fix it, avoid it, or learn to live with it.</p>
+    <div class="examples">
+      <p>"Owe a Debt to the Wrong People" &middot; "They Saw Me Do It" &middot; "Will the Voices Ever End?" &middot; "Zaro Must Pay"</p>
+    </div>
+    <p>Trouble applies whenever it makes narrative sense, by agreement between you and the GM. When it does, roll <strong>2 control dice</strong> in place of your Knack or High Concept dice. You can have up to 3 Troubles; story events can add, remove, or even upgrade one in dire circumstances.</p>
+
+    <h2>Linking Your Aspects</h2>
+    <p>Arrange your High Concept, Knack, and Trouble into a rough chronology — it can reveal where your character's story goes next.</p>
+    <div class="examples">
+      <p>High Concept: "A Dour Seafarer who Explores the Beyond" — Trouble: "The Sea Took My First Love" — Knack: "Stormcaller"</p>
+    </div>
+    <ul>
+      <li>I always had a <em>Knack</em>, but suddenly <em>Trouble</em>, so I became a <em>High Concept</em>.</li>
+      <li><em>Trouble</em>, so I became a <em>High Concept</em> and learned about my <em>Knack</em>.</li>
+      <li><em>High Concept</em> I was destined to be, but my <em>Knack</em> cost me <em>Trouble</em>.</li>
+    </ul>
+    <p>Try a few orderings and see which feels right — and consider sharing an Aspect with another player for an even more tangled story.</p>
+
+    <h2>Skills</h2>
+    <p>You have <strong>10 points</strong> to spend at creation; each point raises one skill by a rank.</p>
+    <div class="callout">
+      <div class="callout-label">The Pyramid Rule</div>
+      <p>Your skills must form a pyramid: for every skill at a given rank, at least two skills must sit at the rank below it. Raising a skill to 3 means at least two other skills need to be sitting at 2.</p>
+    </div>
+
+    <h2>Approaches</h2>
+    <p>Divide <strong>4 points</strong> among your six Approaches, following the same pyramid rule used for Skills.</p>
+
+    <h2>Finishing Up</h2>
+    <p>Last but not least — choose a name.</p>
+  </section>
+
+  <!-- ============ CHAPTER 5 ============ -->
+  <section class="chapter" id="ch5">
+    <div class="chapter-kicker">Chapter Five</div>
+    <h1><span class="chnum">05</span>Equipment &amp; Weapons</h1>
+
+    <p>Sometimes raw character isn't enough. Weapons, armor, and equipment improve your odds by adding dice to a roll where it makes narrative sense — mechanically, they're just another flavor of Advantage.</p>
+
+    <div class="callout gm">
+      <div class="callout-label">GM Note</div>
+      <p>NPCs don't carry equipment dice of their own. Their gear, training, and resources are already baked into their Challenge Rating.</p>
+    </div>
+
+    <h2>How Gear Works</h2>
+    <p>Assign each item a die rating based on rarity and setting. Roll it alongside your pool whenever it would plausibly help with an Overcome, Aid, Attack, or Defend action. For most tables, that's all the complexity gear needs — pick interesting items, give them a rating, and move on.</p>
+
+    <h2>Armor</h2>
+    <p>Armor dice are added to a <strong>Defend</strong> roll to help a character weather a blow.</p>
+
+    <h2>Weapons</h2>
+    <p>A weapon's core stat is its <strong>Weapon Value</strong>, expressed as a die rating added to Attack rolls. See Chapter 9 for example weapons and their ratings.</p>
+  </section>
+
+  <!-- ============ CHAPTER 6 ============ -->
+  <section class="chapter" id="ch6">
+    <div class="chapter-kicker">Chapter Six</div>
+    <h1><span class="chnum">06</span>Combat &amp; Consequences</h1>
+
+    <p>Resolving conflict — physical or otherwise — sometimes leaves a mark. This chapter covers how damage, stress, and lasting Consequences work.</p>
+
+    <h2>Attacking</h2>
+    <p>Roll the appropriate Attack pool and compare hits to the target's CR. A Straight Success or Success at a Cost that clears the CR inflicts at least 1 damage; any hits beyond the CR can be spent as additional damage, banked as Advantage, or split between the two (see Chapter 3).</p>
+
+    <h2>Defending</h2>
+    <p>Roll to Defend using whatever Skill and Approach narratively fits — using <strong>Shoot</strong> to evade enemy fire might mean your character knows exactly which angles keep them out of the line of sight. If the Defend roll fails, the difference between the attacker's hits and your own is dealt to you as damage.</p>
+
+    <h2>Stress &amp; Health</h2>
+    <p>Characters track two parallel pools, mirrored from the Physique and Will ratings on the character sheet:</p>
+    <table>
+      <tr><th>Pool</th><th>Anchored By</th><th>Size</th></tr>
+      <tr><td>Health (physical stress)</td><td>Physique</td><td>Physique rating + 3</td></tr>
+      <tr><td>Resolve (mental stress)</td><td>Will</td><td>Will rating + 3</td></tr>
+    </table>
+    <p class="footnote">The Resolve pool mirrors Health using the same formula, matching the character sheet's Stress section — flag this with your GM if a different mental-stress structure is intended for your table.</p>
+    <p>Each point of damage lowers the relevant pool. When a pool is fully depleted, the character is taken out of the scene — unconscious, overwhelmed, or worse, depending on the stakes the table has agreed to.</p>
+
+    <h2>Consequences</h2>
+    <p>Instead of taking damage straight off a stress pool, a character can absorb a hit as a <strong>Consequence</strong> — a narratively appropriate setback, like "Dislocated Shoulder."</p>
+    <ul>
+      <li>Consequences are rated 1 to 3.</li>
+      <li>While a Consequence applies to a roll, it subtracts a player die from the pool.</li>
+      <li>A character can choose to ignore that subtraction, but doing so raises the Consequence's rating by 1.</li>
+      <li>A Consequence that reaches rating 3 is maxed out and permanent until the character receives long-term care.</li>
+    </ul>
+  </section>
+
+  <!-- ============ PART TWO DIVIDER ============ -->
+  <div class="part-divider">
+    <div class="part-eyebrow">Part Two</div>
+    <h1>The Gamemaster's Guide</h1>
+    <p>Calibrating Challenge Ratings, running NPCs, and keeping the Drive-and-Control economy honest at the table.</p>
+  </div>
+
+  <!-- ============ CHAPTER 7 ============ -->
+  <section class="chapter" id="ch7">
+    <div class="chapter-kicker">Chapter Seven</div>
+    <h1><span class="chnum">07</span>NPCs &amp; Challenge Ratings</h1>
+
+    <p>ADA is built to minimize GM overhead. Most NPCs need nothing more than a Challenge Rating — you never roll for them. Their entire presence in a scene is expressed through the control dice they bring to a player's roll.</p>
+
+    <h2>Setting a Challenge Rating</h2>
+    <table>
+      <tr><th>Action Type</th><th>Typical CR</th></tr>
+      <tr><td>Overcome</td><td>3 – 5</td></tr>
+      <tr><td>Aid</td><td>2 – 4</td></tr>
+    </table>
+    <p>Base the rating on whether an average person could pull it off. Jimmy the Acrobat tightropes across a building without breaking a sweat; Bob from Accounting would have a hell of a time with the same crossing. For Bob, that's a CR 4, pushing toward 5.</p>
+
+    <div class="callout">
+      <div class="callout-label">DC 5+</div>
+      <p>Don't push individual Challenge Ratings past 5. Tasks that feel harder than a 5 should be tackled by stacking banked Advantage dice from earlier scenes instead of inflating the CR further.</p>
+    </div>
+
+    <div class="callout">
+      <div class="callout-label">The 1:1 Tilt</div>
+      <p>Matching player dice to control dice one-for-one gives a slight statistical edge to the players. Keep that in mind when you're setting a CR — it isn't a flaw to fix, just a lean to account for.</p>
+    </div>
+
+    <h2>NPCs and Consequences</h2>
+    <p>A world where players only ever take Consequences while NPCs shrug off hits as raw numbers can feel one-sided. Occasional Consequences on NPCs go a long way — but keep them rare, and cap low-end grunts at 1 Consequence apiece. They're also a handy identifying detail when a fight is being run in Theater of Mind.</p>
+
+    <h2>Creating Consequences as the GM</h2>
+    <p>Spend Control tokens to inflict a Consequence on a player on a 1-to-1 basis — 2 Control tokens creates a Consequence rated 2.</p>
+  </section>
+
+  <!-- ============ CHAPTER 8 ============ -->
+  <section class="chapter" id="ch8">
+    <div class="chapter-kicker">Chapter Eight</div>
+    <h1><span class="chnum">08</span>Drive &amp; Control</h1>
+
+    <p>Drive and Control are the two forces pushing on the story: Drive is the players driving it forward, Control is the world pushing back.</p>
+
+    <h2>The Spotlight</h2>
+    <p>ADA doesn't use a rolled initiative order. It's always the players' turn, and players decide amongst themselves who takes the spotlight next, guided by what makes narrative sense. The spotlight returns to the GM when:</p>
+    <ul>
+      <li>A player fails a roll (Defend rolls excluded).</li>
+      <li>A player succeeds at a cost.</li>
+      <li>The GM spends a Control token.</li>
+    </ul>
+    <p>Once the GM has made a move, the spotlight passes back to the players.</p>
+
+    <h2>Control Tokens</h2>
+    <p>The GM starts each session with Control tokens equal to the number of players. Spend them to seize the spotlight or introduce a complication. The GM gains a Control token whenever a player rolls a <strong>Success at a Cost</strong> or a <strong>Critical Failure</strong>.</p>
+
+    <h2>Drive Tokens</h2>
+    <p>Covered fully in Chapter 3 — players start each session with 2, gain one on a Straight Success, and spend them to reroll a die. They persist across sessions.</p>
+  </section>
+
+  <!-- ============ CHAPTER 9 ============ -->
+  <section class="chapter" id="ch9">
+    <div class="chapter-kicker">Chapter Nine</div>
+    <h1><span class="chnum">09</span>Reference Tables</h1>
+
+    <h2>Example Challenge Ratings</h2>
+    <table>
+      <tr><th>Control Dice</th><th>Difficulty</th></tr>
+      <tr><td>1</td><td>Trivial</td></tr>
+      <tr><td>2</td><td>Easy</td></tr>
+      <tr><td>3</td><td>Standard</td></tr>
+      <tr><td>4</td><td>Challenging</td></tr>
+      <tr><td>5</td><td>Hard</td></tr>
+      <tr><td>6</td><td>Epic</td></tr>
+    </table>
+
+    <h2>Weapons</h2>
+    <table>
+      <tr><th>Name</th><th>Rating</th><th>Notes</th></tr>
+      <tr><td>Compact Pistol</td><td>1</td><td>Concealable, high ammo — easy to carry, hard to hit with.</td></tr>
+      <tr><td>Service Pistol</td><td>2</td><td>The reliable standard. Balanced across the board.</td></tr>
+      <tr><td>Submachine Gun</td><td>2</td><td>High ammo, moderate damage — spray and pray.</td></tr>
+      <tr><td>Light Machine Gun</td><td>2</td><td>A suppression tool — trades accuracy for volume.</td></tr>
+      <tr><td>Sawn-Off Shotgun</td><td>3</td><td>Devastating up close, burns through ammo fast.</td></tr>
+      <tr><td>Combat Shotgun</td><td>3</td><td>More controlled than the sawn-off, still punishing.</td></tr>
+      <tr><td>Assault Rifle</td><td>4</td><td>The full package — strong die, strong ammo.</td></tr>
+      <tr><td>Designated Marksman Rifle</td><td>4</td><td>Precision at range, slower follow-up shots.</td></tr>
+      <tr><td>Sniper Rifle</td><td>4</td><td>Maximum damage potential, minimum shots before reload.</td></tr>
+      <tr><td>Anti-Materiel Rifle</td><td>4</td><td>Destroys cover and vehicles — narratively restricted by size and weight.</td></tr>
+    </table>
+
+    <h2>Armor</h2>
+    <table>
+      <tr><th>Name</th><th>Rating</th><th>Notes</th></tr>
+      <tr><td>Leather Jacket</td><td>1</td><td>Better than nothing — concealable, won't raise eyebrows.</td></tr>
+      <tr><td>Ballistic Vest</td><td>2</td><td>Standard issue protection, visible under clothing.</td></tr>
+      <tr><td>Tactical Plate Carrier</td><td>3</td><td>Serious protection, serious bulk — hard to hide.</td></tr>
+      <tr><td>Military Exo-Rig</td><td>4</td><td>Full coverage, powered assists — narratively restricted; you're not walking into a boardroom in this.</td></tr>
+    </table>
+  </section>
+
+  <!-- ============ APPENDIX: QUICK REFERENCE ============ -->
+  <section class="chapter" id="appendix">
+    <div class="chapter-kicker">Appendix</div>
+    <h1><span class="chnum">QR</span>Quick Reference</h1>
+
+    <div class="qref-grid">
+      <div class="qref-card">
+        <h3>Actions</h3>
+        <dl>
+          <dt>Overcome</dt><dd>Roll pool. Meet or beat the CR.</dd>
+          <dt>Aid</dt><dd>Like Overcome. Any Advantage die generated goes straight to the ally you're helping.</dd>
+          <dt>Attack</dt><dd>Like Overcome. Extra hits become damage, banked Advantage, or both.</dd>
+          <dt>Defend</dt><dd>Like Overcome. Failure deals the hit difference as damage.</dd>
+        </dl>
+      </div>
+      <div class="qref-card">
+        <h3>Outcomes</h3>
+        <dl>
+          <dt class="out-success" style="font-family:var(--mono); font-size:12.5px;">Straight Success</dt><dd>Hits ≥ CR, player hits &gt; control hits. Earn 1 Drive.</dd>
+          <dt class="out-cost" style="font-family:var(--mono); font-size:12.5px;">Success at a Cost</dt><dd>Hits ≥ CR, control hits &gt; player hits. GM earns 1 Control.</dd>
+          <dt class="out-fail" style="font-family:var(--mono); font-size:12.5px;">Failure</dt><dd>Hits &lt; CR, player hits ≥ control hits.</dd>
+          <dt class="out-crit" style="font-family:var(--mono); font-size:12.5px;">Critical Failure</dt><dd>Hits &lt; CR, control hits &gt; player hits. GM earns 1 Control.</dd>
+        </dl>
+      </div>
+      <div class="qref-card">
+        <h3>Spotlight Returns to GM When…</h3>
+        <dl>
+          <dt>Failed roll</dt><dd>Any non-Defend roll that fails.</dd>
+          <dt>Success at a Cost</dt><dd>Even though it cleared the CR.</dd>
+          <dt>Control spent</dt><dd>The GM chooses to seize it.</dd>
+        </dl>
+      </div>
+      <div class="qref-card">
+        <h3>Tokens</h3>
+        <dl>
+          <dt>Drive</dt><dd>Start: 2/session. Gain on Straight Success. Spend to reroll a die. No cap (yet).</dd>
+          <dt>Control</dt><dd>Start: 1 per player. Gain on Success at a Cost or Critical Failure. Spend to seize spotlight or inflict a Consequence (1 token = CR 1).</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>
