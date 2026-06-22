@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ADA Playtest Transcript — Ghost Protocol</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+
+  :root {
+    --ink: #e8e6e1;
+    --muted: #9a9690;
+    --faint: #6a6662;
+    --rule: #2e2c28;
+    --page: #111009;
+    --card: #1a1814;
+    --accent: #e05a4a;
+    --accent-light: #261410;
+    --control: #4a7ab5;
+    --control-light: #0d1a2a;
+    --player: #4aaa64;
+    --player-light: #0a1f10;
+    --mech: #a07ad0;
+    --mech-light: #180f24;
+    --gm: #c0943a;
+    --gm-light: #1e160a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--ink);
+    background: var(--page);
+    padding: 2rem 1rem 4rem;
+  }
+
+  .doc { max-width: 820px; margin: 0 auto; }
+
+  .cover {
+    border-bottom: 3px solid var(--ink);
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+  }
+
+  .cover-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+
+  .cover-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+
+  .cover-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.25rem;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+  }
+
+  .cover-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    font-size: 12px;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .cover-meta-item strong {
+    display: block;
+    font-weight: 500;
+    color: var(--faint);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 10px;
+    margin-bottom: 2px;
+  }
+
+  .source-tag {
+    margin-top: 1rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--faint);
+  }
+  .source-tag a { color: var(--mech); text-decoration: none; border-bottom: 1px dotted var(--mech); }
+
+  .cast-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1rem;
+    margin-bottom: 3rem;
+  }
+
+  .char-card {
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 1rem 1.1rem;
+    border-top: 3px solid var(--faint);
+  }
+
+  .char-card.ghost  { border-top-color: var(--accent); }
+  .char-card.cipher { border-top-color: var(--control); }
+  .char-card.sable  { border-top-color: var(--player); }
+
+  .char-handle {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--faint);
+    margin-bottom: 3px;
+  }
+
+  .char-name { font-size: 17px; font-weight: 500; margin-bottom: 8px; }
+
+  .char-concept {
+    font-size: 12px;
+    color: var(--muted);
+    font-style: italic;
+    padding: 6px 8px;
+    background: var(--page);
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+
+  .char-aspects { font-size: 11.5px; }
+
+  .char-aspects dt {
+    font-family: 'DM Mono', monospace;
+    font-size: 9.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--faint);
+    margin-top: 7px;
+  }
+
+  .char-aspects dd { color: var(--ink); }
+
+  .knack-val {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    background: var(--player-light);
+    color: var(--player);
+    padding: 1px 5px;
+    border-radius: 3px;
+    float: right;
+  }
+
+  .trouble-val {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    background: var(--accent-light);
+    color: var(--accent);
+    padding: 1px 5px;
+    border-radius: 3px;
+    float: right;
+  }
+
+  .player-label {
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    color: var(--faint);
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--rule);
+  }
+
+  .stress-line {
+    font-size: 10.5px;
+    font-family: 'DM Mono', monospace;
+    color: var(--faint);
+    margin-top: 6px;
+  }
+  .stress-line strong { color: var(--ink); font-weight: 500; }
+
+  .scene { margin-bottom: 3.5rem; }
+
+  .scene-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1.5px solid var(--ink);
+  }
+
+  .scene-number {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--faint);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+  }
+
+  .scene-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+  }
+
+  .narration {
+    font-style: italic;
+    color: var(--muted);
+    margin-bottom: 0.9rem;
+    padding-left: 1rem;
+    border-left: 2px solid var(--rule);
+    font-size: 14px;
+  }
+
+  .beat { margin-bottom: 0.65rem; font-size: 14.5px; }
+
+  .speaker {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-right: 8px;
+  }
+
+  .speaker.gm     { color: var(--gm); }
+  .speaker.ghost  { color: var(--accent); }
+  .speaker.cipher { color: var(--control); }
+  .speaker.sable  { color: var(--player); }
+
+  .quote { color: var(--ink); }
+
+  .mech-block {
+    background: var(--mech-light);
+    border-left: 3px solid var(--mech);
+    border-radius: 0 6px 6px 0;
+    padding: 0.9rem 1.1rem;
+    margin: 1rem 0 1.2rem;
+    font-size: 13px;
+  }
+
+  .mech-block .mech-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--mech);
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+
+  .mech-block .mech-action {
+    font-weight: 500;
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+
+  .pool-line {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    margin: 4px 0;
+    color: var(--muted);
+  }
+
+  .pool-line strong { font-weight: 500; color: var(--ink); }
+
+  .dc-rationale {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    margin: 7px 0 5px;
+    padding: 6px 8px;
+    background: rgba(160,122,208,0.08);
+    border-radius: 4px;
+    color: var(--mech);
+    border-left: 2px solid var(--mech);
+  }
+
+  .rule-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 10.5px;
+    margin: 6px 0;
+    padding: 5px 8px;
+    background: rgba(192,148,58,0.08);
+    border-radius: 4px;
+    color: var(--gm);
+    border-left: 2px solid var(--gm);
+  }
+
+  .dice-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 8px 0;
+    align-items: center;
+  }
+
+  .die {
+    width: 32px;
+    height: 32px;
+    border-radius: 5px;
+    border: 1.5px solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+
+  .die.player         { background: var(--player-light); border-color: var(--player); color: var(--player); }
+  .die.player.hit     { background: var(--player); color: #0a1f10; border-color: var(--player); }
+  .die.player.boom    { background: var(--ink); color: #111; border-color: var(--ink); }
+  .die.control        { background: var(--control-light); border-color: var(--control); color: var(--control); }
+  .die.control.hit    { background: var(--control); color: #0d1a2a; border-color: var(--control); }
+  .die.control.cancel { background: var(--accent); color: #261410; border-color: var(--accent); }
+  .die.exploded       { background: #e8e6e1; color: #111; border-color: #e8e6e1; }
+  .die.advantage       { background: var(--gm-light); border-color: var(--gm); color: var(--gm); }
+
+  .die-sep {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--faint);
+    letter-spacing: 0.05em;
+  }
+
+  .result-line {
+    margin-top: 8px;
+    font-size: 13px;
+    padding: 7px 10px;
+    border-radius: 5px;
+    font-weight: 500;
+  }
+
+  .result-line.success      { background: var(--player-light); color: var(--player); }
+  .result-line.success-cost { background: var(--gm-light); color: var(--gm); }
+  .result-line.failure      { background: var(--accent-light); color: var(--accent); }
+  .result-line.crit-fail    { background: #2a0a08; color: var(--accent); border: 1px solid var(--accent); }
+
+  .result-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.75;
+    margin-right: 6px;
+  }
+
+  .spotlight-block {
+    background: var(--gm-light);
+    border-left: 3px solid var(--gm);
+    border-radius: 0 6px 6px 0;
+    padding: 0.75rem 1rem;
+    margin: 1rem 0 1.2rem;
+    font-size: 13px;
+  }
+
+  .spotlight-block .sp-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gm);
+    margin-bottom: 4px;
+  }
+
+  .token-spend {
+    background: var(--accent-light);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 6px 6px 0;
+    padding: 0.75rem 1rem;
+    margin: 1rem 0 1.2rem;
+    font-size: 13px;
+  }
+
+  .token-spend .ts-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+
+  .drive-spend {
+    background: #1a1400;
+    border-left: 3px solid #c9a000;
+    border-radius: 0 6px 6px 0;
+    padding: 0.75rem 1rem;
+    margin: 1rem 0 1.2rem;
+    font-size: 13px;
+  }
+
+  .drive-spend .ds-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #c9a000;
+    margin-bottom: 4px;
+  }
+
+  .consequence-block {
+    background: var(--accent-light);
+    border: 1px solid #4a1a14;
+    border-radius: 6px;
+    padding: 0.7rem 0.9rem;
+    margin: 0.8rem 0;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .consequence-block .con-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    background: var(--accent);
+    color: #111;
+    padding: 2px 6px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  .advantage-block {
+    background: var(--player-light);
+    border: 1px solid #1a3a22;
+    border-radius: 6px;
+    padding: 0.7rem 0.9rem;
+    margin: 0.8rem 0;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .advantage-block .adv-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    background: var(--player);
+    color: #0a1f10;
+    padding: 2px 6px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  .advantage-block.red {
+    background: var(--accent-light);
+    border-color: #4a1a14;
+  }
+  .advantage-block.red .adv-tag {
+    background: var(--accent);
+    color: #261410;
+  }
+
+  .trouble-trigger {
+    background: var(--accent-light);
+    border: 1px dashed var(--accent);
+    border-radius: 6px;
+    padding: 0.7rem 0.9rem;
+    margin: 0.8rem 0;
+    font-size: 13px;
+  }
+
+  .trouble-trigger .tt-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    margin-bottom: 3px;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--faint);
+    margin: 1.5rem 0 0.6rem;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .token-tracker {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    font-size: 12px;
+    font-family: 'DM Mono', monospace;
+    padding: 0.75rem 1rem;
+    background: var(--page);
+    border: 1px solid var(--rule);
+    border-radius: 5px;
+    margin: 1.25rem 0;
+  }
+
+  .tt-item strong {
+    display: block;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--faint);
+    margin-bottom: 2px;
+  }
+
+  .designer-note {
+    margin: 2rem 0 0;
+    padding: 1rem 1.1rem;
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    font-size: 12.5px;
+    color: var(--muted);
+  }
+
+  .designer-note p { margin-bottom: 0.7rem; }
+  .designer-note p:last-child { margin-bottom: 0; }
+
+  .designer-note .dn-label {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--faint);
+    margin-bottom: 10px;
+  }
+
+  .dn-item-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .toc {
+    margin-bottom: 3rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    font-size: 13px;
+  }
+
+  .toc strong {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--faint);
+    margin-bottom: 10px;
+  }
+
+  .toc ol {
+    padding-left: 1.2rem;
+    color: var(--muted);
+    line-height: 2;
+  }
+
+  hr.scene-divider {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 2.5rem 0;
+  }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .mech-block, .spotlight-block, .token-spend, .drive-spend { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="doc">
+
+  <div class="cover">
+    <div class="cover-eyebrow">ADA TTRPG — Playtest Transcript #003</div>
+    <div class="cover-title">Ghost Protocol</div>
+    <div class="cover-subtitle">A cyberpunk one-shot heist in the sprawl of New Meridian</div>
+    <div class="cover-meta">
+      <div class="cover-meta-item"><strong>Session type</strong>One-shot</div>
+      <div class="cover-meta-item"><strong>Players</strong>3 + GM</div>
+      <div class="cover-meta-item"><strong>Setting</strong>Cyberpunk / Near future</div>
+      <div class="cover-meta-item"><strong>Ruleset</strong>Handbook 1.0 Draft</div>
+      <div class="cover-meta-item"><strong>Est. runtime</strong>~3 hours</div>
+    </div>
+    <div class="source-tag">Rules source: <a href="https://dvanbale.github.io/ada/ada-handbook.html">ADA Players &amp; Gamemaster Handbook</a> — this transcript follows the published handbook exactly, including the always-on High Concept die, unified Advantage banking, and the revised Drive/Control triggers.</div>
+  </div>
+
+  <div class="toc">
+    <strong>Contents</strong>
+    <ol>
+      <li>Cast of Characters</li>
+      <li>Scene 1 — The Approach (Overcome, CR 4)</li>
+      <li>Scene 2 — Dead Air (Overcome w/ banked Advantage, Aid CR 2)</li>
+      <li>Scene 3 — Ghost in the System (Trouble adds to pool, shared Advantage)</li>
+      <li>Scene 4 — The Vault Door (Critical Failure, CR 5)</li>
+      <li>Scene 5 — Corridor Fight (Attack, Defend, Consequences)</li>
+      <li>Scene 6 — The Data Pull (Drive reroll flips a tie)</li>
+      <li>Scene 7 — Deviation (Trouble adds 2 control dice on top of HC)</li>
+      <li>Scene 8 — Extraction (Group Overcome, banked Advantage shared across characters)</li>
+      <li>Designer Notes</li>
+    </ol>
+  </div>
+
+  <div class="section-label">Cast of characters</div>
+  <div class="cast-grid">
+    <div class="char-card ghost">
+      <div class="char-handle">Player: Yemi</div>
+      <div class="char-name">Zara "Ghost" Voss</div>
+      <div class="char-concept">"A Burned Street Samurai who Runs One Last Job"</div>
+      <dl class="char-aspects">
+        <dt>Knack <span class="knack-val">1d10</span></dt>
+        <dd>"Moves Through Shadows Like Water"</dd>
+        <dt>Trouble <span class="trouble-val">2 ctrl d10</span></dt>
+        <dd>"Axiom Has My Biometrics From the Tanner Street Job"</dd>
+      </dl>
+      <div class="player-label">Fight 2d10 · Athletics 2d10 · Shoot 1d10 · Notice 1d10<br>Quick 2d10 · Sneaky 2d10 · Forceful 1d10</div>
+      <div class="stress-line">Physique 2 → <strong>Health 5</strong> &nbsp;·&nbsp; Will 1 → <strong>Resolve 4</strong></div>
+    </div>
+    <div class="char-card cipher">
+      <div class="char-handle">Player: Petra</div>
+      <div class="char-name">Cael "Cipher" Okafor</div>
+      <div class="char-concept">"A Disgraced Corp Hacker who Sells Secrets"</div>
+      <dl class="char-aspects">
+        <dt>Knack <span class="knack-val">1d10</span></dt>
+        <dd>"I Was There When They Built the System"</dd>
+        <dt>Trouble <span class="trouble-val">2 ctrl d10</span></dt>
+        <dd>"Axiom Corp Has a Bounty on My Neural Chip"</dd>
+      </dl>
+      <div class="player-label">Academics 2d10 · Crafts 2d10 · Investigate 1d10 · Lore 1d10<br>Clever 2d10 · Careful 2d10 · Sneaky 1d10</div>
+      <div class="stress-line">Physique 1 → <strong>Health 4</strong> &nbsp;·&nbsp; Will 3 → <strong>Resolve 6</strong></div>
+    </div>
+    <div class="char-card sable">
+      <div class="char-handle">Player: Dana</div>
+      <div class="char-name">Mira "Sable" Tian</div>
+      <div class="char-concept">"A Ruthless Fixer who Always Gets Things Done"</div>
+      <dl class="char-aspects">
+        <dt>Knack <span class="knack-val">1d10</span></dt>
+        <dd>"Everyone Owes Me a Favour"</dd>
+        <dt>Trouble <span class="trouble-val">2 ctrl d10</span></dt>
+        <dd>"My Daughter Is Somewhere in That Building"</dd>
+      </dl>
+      <div class="player-label">Persuade 2d10 · Contacts 2d10 · Empathy 1d10 · Fight 1d10<br>Flashy 2d10 · Forceful 2d10 · Clever 1d10</div>
+      <div class="stress-line">Physique 2 → <strong>Health 5</strong> &nbsp;·&nbsp; Will 2 → <strong>Resolve 5</strong></div>
+    </div>
+  </div>
+
+  <div class="rule-note">High Concept reminder: per the handbook, the High Concept die (1 player d10) is rolled on <strong>every</strong> pool below, with no exceptions. Knack or Trouble — never both — add on top of it. Watch for this in Scene 3 and Scene 7, where Trouble adds 2 control dice alongside High Concept rather than replacing it.</div>
+
+  <div class="token-tracker">
+    <div class="tt-item"><strong>Drive (Ghost)</strong>●● 2</div>
+    <div class="tt-item"><strong>Drive (Cipher)</strong>●● 2</div>
+    <div class="tt-item"><strong>Drive (Sable)</strong>●● 2</div>
+    <div class="tt-item"><strong>GM Control</strong>●●● 3</div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════ SCENE 1 ══ -->
+  <div class="scene">
+    <div class="scene-header">
+      <span class="scene-number">Scene 01</span>
+      <span class="scene-title">The Approach</span>
+    </div>
+
+    <p class="narration">The Axiom Corporate Spire claws fifty floors into New Meridian's toxic orange sky. Ghost goes up the outside. Cipher jacks in remotely from a ramen booth across the plaza. Sable walks in the front door. They have twelve minutes before the night-shift security sweep.</p>
+
+    <div class="beat"><span class="speaker gm">GM</span><span class="quote">Ghost, you're twenty metres up the tower's maintenance scaffold. It ends at the 8th floor — you need to reach the 14th, the service corridor that bypasses the lobby scanners. Wind is biting. How are you getting there?</span></div>
+
+    <div class="beat"><span class="speaker ghost">Ghost</span><span class="quote">Hand-over-hand up the curtain wall. There's a vertical drainage channel I can use as a rail. Athletics and Quick.</span></div>
+
+    <div class="beat"><span class="speaker gm">GM</span><span class="quote">Does your Knack apply?</span></div>
+
+    <div class="beat"><span class="speaker ghost">Ghost</span><span class="quote">Not really — she's moving fast, not invisibly. No Knack this time. Just me, the wall, and my High Concept.</span></div>
+
+    <div class="mech-block">
+      <div class="mech-label">Overcome — Ghost scales the tower exterior</div>
+      <div class="mech-action">Ghost: High Concept 1d10 (always) + Athletics 2d10 + Quick 2d10 = 5 player d10</div>
+      <div class="dc-rationale">CR reasoning: could an average person free-climb a glass corporate tower at night in high wind? Not a chance. This sits at <strong>CR 4 (Challenging)</strong>, the upper-middle of the Overcome range (3–5).</div>
+      <div class="pool-line">Control dice added: <strong>4d10</strong> · Total pool: 5 player + 4 control</div>
+
+      <div class="section-label" style="margin-top:10px;">Roll</div>
+      <div class="pool-line">Player dice:</div>
+      <div class="dice-row">
+        <div class="die player hit">9</div>
+        <div class="die player hit">8</div>
+        <div class="die player hit">7</div>
+        <div class="die player">4</div>
+        <div class="die player">2</div>
+      </div>
+      <div class="pool-line">Control dice:</div>
+      <div class="dice-row">
+        <div class="die control hit">6</div>
+        <div class="die control">5</div>
+        <div class="die control">3</div>
+        <div class="die control">2</div>
+      </div>
+      <div class="pool-line" style="margin-top:8px;">Player hits: <strong>3</strong> · Control hits: <strong>1</strong> · Total: <strong>4</strong></div>
+      <div class="pool-line">Meets CR 4 exactly ✓ · Player hits (3) exceed Control hits (1) ✓</div>
+      <div class="result-line success"><span class="result-tag">Straight Success</span> Ghost reaches the 14th floor service corridor unseen. No hits to spare, so no Advantage banked — but a Straight Success still earns a Drive token.</div>
+    </div>
+
+    <div class="beat"><span class="speaker gm">GM</span><span class="quote">You haul yourself over the ledge. The corridor is dark. One blinking red LED on the fire exit. You're in — but on the way up, your boot scraped a sensor housing. It logged as a maintenance notification, not an alarm. No one checks it until morning. Not your problem yet.</span></div>
+
+    <p class="narration">The GM banks the scraped sensor as a complication to cash in later with a Control token.</p>
+
+    <div class="token-tracker">
+      <div class="tt-item"><strong>Drive (Ghost)</strong>●●● 3 ← Straight Success</div>
+      <div class="tt-item"><strong>Drive (Cipher)</strong>●● 2</div>
+      <div class="tt-item"><strong>Drive (Sable)</strong>●● 2</div>
+      <div class="tt-item"><strong>GM Control</strong>●●● 3</div>
+    </div>
+  </div>
+
+  <hr class="scene-divider">
+
+  <!-- ══════════════════════════════════════════════ SCENE 2 ══ -->
+  <div class="scene">
+    <div class="scene-header">
+      <span class="scene-number">Scene 02</span>
+      <span class="scene-title">Dead Air</span>
+    </div>
+
+    <p class="narration">Cipher is in the back booth of the ramen shop across the plaza, deck live, neural interface hot. Sable is in the lobby wearing a borrowed executive coat and her best smile.</p>
+
+    <div class="beat"><span class="speaker cipher">Cipher</span><span class="quote">Before Ghost moves deeper, I want to loop the camera feed on floors 12 through 14. Academics and Careful. My Knack absolutely applies — "I Was There When They Built the System." I architected this network three years ago.</span></div>
+
+    <div class="rule-note">There's no separate "Create Advantage" action in this ruleset — this is an ordinary Overcome roll. Any hits Cipher rolls beyond the CR become a banked Advantage die instead of going to waste.</div>
+
+    <div class="mech-block">
+      <div class="mech-label">Overcome — Cipher loops the security cameras</div>
+      <div class="mech-action">Cipher: High Concept 1d10 + Knack 1d10 + Academics 2d10 + Careful 2d10 = 6 player d10</div>
+      <div class="dc-rationale">CR reasoning: could an average person reroute a live corporate security feed without authorization or getting caught? No — full stop. That's the only question the CR answers. Cipher's Knack and skill dice are what represent his insider edge; they belong in the pool, not in a CR discount. <strong>CR 4 (Challenging)</strong>.</div>
+      <div class="pool-line">Control dice added: <strong>4d10</strong> · Total pool: 6 player + 4 control</div>
+
+      <div class="section-label" style="margin-top:10px;">Roll</div>
+      <div class="pool-line">Player dice:</div>
+      <div class="dice-row">
+        <div class="die player hit">10</div>
+        <div class="die player hit">9</div>
+        <div class="die player hit">8</div>
+        <div class="die player hit">7</div>
+        <div class="die player">4</div>
+        <div class="die player">1</div>
+      </div>
+      <div class="pool-line" style="font-style:italic; font-size:12px;">10 explodes — bonus player d10:</div>
+      <div class="dice-row">
+        <div class="die player boom">10</div>
+        <div class="die exploded hit">9</div>
+        <div class="die-sep">← hit!</div>
+      </div>
+      <div class="pool-line">Control dice:</div>
+      <div class="dice-row">
+        <div class="die control">5</div>
+        <div class="die control">4</div>
+        <div class="die control">3</div>
+        <div class="die control">2</div>
+      </div>
+      <div class="pool-line" style="margin-top:8px;">Player hits: <strong>5</strong> (10, 9, 8, 7, exploded 9) · Control hits: <strong>0</strong> · Total: <strong>5</strong></div>
+      <div class="pool-line">Meets CR 4 ✓ · Player hits exceed Control hits ✓ · Extra hits beyond CR: <strong>1</strong></div>
+      <div class="result-line success"><span class="result-tag">Straight Success</span> Cipher's pool was just deep enough to clear a genuinely hard CR with a hit to spare. 1 hit beyond the CR banks as a white Advantage die. Drive token earned.</div>
+    </div>
+
+    <div class="advantage-block">
+      <span class="adv-tag">Advantage · 1 white d10</span>
+      "Dead Zone in Camera Grid" — banked, available to anyone at the table who can plausibly use it on a roll through the 12th–14th floor corridors.
+    </div>
+
+    <div class="beat"><span class="speaker cipher">Cipher</span><span class="quote">Ghost, the feed is looped. You've got a dead zone on 12 through 14 for the next forty minutes — or until someone notices the handshake blip.</span></div>
+
+    <p class="narration">Meanwhile, in the lobby, Sable needs to run interference on the front desk guard while Ghost crosses the lobby-level camera blind spot.</p>
+
+    <div class="beat"><span class="speaker sable">Sable</span><span class="quote">I'm going to Aid Ghost. I'll get into a loud, absorbing conversation with the guard — missing reservation, name-dropping an internal events contact. Persuade and Flashy. My Knack applies — "Everyone Owes Me a Favour."</span></div>
+
+    <div class="mech-block">
+      <div class="mech-label">Aid — Sable distracts the lobby guard</div>
+      <div class="mech-action">Sable: High Concept 1d10 + Knack 1d10 + Persuade 2d10 + Flashy 2d10 = 6 player d10</div>
+      <div class="dc-rationale">CR reasoning: Aid sits at CR 2–4. The guard has no reason to be suspicious — this is a walk-in charm offensive on an unremarkable Thursday evening. <strong>CR 2 (Easy)</strong>.</div>
+      <div class="pool-line">Control dice added: <strong>2d10</strong> · Total pool: 6 player + 2 control</div>
+
+      <div class="section-label" style="margin-top:10px;">Roll</div>
+      <div class="pool-line">Player dice:</div>
+      <div class="dice-row">
+        <div class="die player hit">8</div>
+        <div class="die player">5</div>
+        <div class="die player">4</div>
+        <div class="die player">3</div>
+        <div class="die player">3</div>
+        <div class="die player">2</div>
+      </div>
+      <div class="pool-line">Control dice:</div>
+      <div class="dice-row">
+        <div class="die control hit">7</div>
+        <div class="die control hit">6</div>
+      </div>
+      <div class="pool-line" style="margin-top:8px;">Player hits: <strong>1</strong> · Control hits: <strong>2</strong> · Total: <strong>3</strong></div>
+      <div class="pool-line">Meets CR 2 ✓ · But Control hits (2) exceed Player hits (1) · Extra hits beyond CR: <strong>1</strong></div>
+      <div class="result-line success-cost"><span class="result-tag">Success at a Cost</span> Aid hands its Advantage die straight to Ghost rather than banking it — and because this is a Cost result, that die comes through red (control), not white. GM gains a Control token.</div>
+    </div>
+
+    <div class="advantage-block red">
+      <span class="adv-tag">Advantage · 1 red d10</span>
+      Handed directly to Ghost for her next roll — it'll help her clear the CR, but it's a control die, working against her at the same time.
+    </div>
+
+    <div class="beat"><span class="speaker gm">GM</span><span class="quote">The guard is completely wrapped up — you're weaving a story about the Axiom Gala booking and he's lapping it up. But as Ghost passes behind him, his earpiece crackles. A second guard is doing a check-in sweep earlier than scheduled. The window just got tighter.</span></div>
+
+    <div class="spotlight-block">
+      <div class="sp-label">Spotlight shifts to GM</div>
+      Success at a Cost transfers Spotlight even though the roll cleared its CR. The GM narrates the early check-in sweep — a second guard is moving toward the lobby.
+    </div>
+
+    <div class="token-tracker">
+      <div class="tt-item"><strong>Drive (Ghost)</strong>●●● 3</div>
+      <div class="tt-item"><strong>Drive (Cipher)</strong>●●● 3 ← Straight Success</div>
+      <div class="tt-item"><strong>Drive (Sable)</strong>●● 2</div>
+      <div class="tt-item"><strong>GM Control</strong>●●●● 4 ← gained on SaaC</div>
+    </div>
+  </div>
+
+  <hr class="scene-divider">
+
+  <!-- ══════════════════════════════════════════════ SCENE 3 ══ -->
+  <div class="scene">
+    <div class="scene-header">
+      <span class="scene-number">Scene 03</span>
+      <span class="scene-title">Ghost in the System</span>
+    </div>
+
+    <p class="narration">Ghost is in the 12th floor service corridor moving toward the vault anteroom. The second guard is approaching from the lobby stairwell. She has Cipher's banked Dead Zone Advantage (white) and Sable's Aid die (red) both in play.</p>
+
+    <div class="beat"><span class="speaker gm">GM</span><span class="quote">Ghost — before you roll. "Axiom Has My Biometrics From the Tanner Street Job." You're inside their building. Their passive HVAC biometric sweep runs every four minutes on all floors. Does your Trouble apply?</span></div>
+
+    <div class="beat"><span class="speaker ghost">Ghost</span><span class="quote">Yes. The building knowing I've been here before is exactly the kind of thing that should haunt this job. Trouble applies.</span></div>
+
+    <div class="trouble-trigger">
+      <div class="tt-label">Trouble applies — "Axiom Has My Biometrics From the Tanner Street Job"</div>
+      Per the handbook, Trouble doesn't replace High Concept — it adds 2 control dice on top of the full pool, HC included. Ghost still rolls her High Concept die; the building's memory of her just makes the task harder.
+    </div>
+
+    <div class="mech-block">
+      <div class="mech-label">Overcome — Ghost slips past the second guard</div>
+      <div class="mech-action">Ghost: High Concept 1d10 + Athletics 2d10 + Sneaky 2d10 + Dead Zone Advantage 1d10 (white) = 6 player d10</div>
+      <div class="dc-rationale">CR reasoning: could an average person sneak past a trained, alert corporate guard on patrol? No — and not narrowly, either. That's a clear "Bob doesn't make it," same tier as the tower climb. <strong>CR 4 (Challenging)</strong>.</div>
+      <div class="pool-line">Control dice: <strong>4</strong> (CR) + <strong>2</strong> (Trouble) + <strong>1</strong> (Sable's red Aid die) = <strong>7 control d10</strong></div>
+      <div class="pool-line">Total pool: 6 player + 7 control</div>
+
+      <div class="section-label" style="margin-top:10px;">Roll</div>
+      <div class="pool-line">Player dice:</div>
+      <div class="dice-row">
+        <div class="die player hit">10</div>
+        <div class="die player hit">9</div>
+        <div class="die player hit">7</div>
+        <div class="die player">4</div>
+        <div class="die player">2</div>
+        <div class="die player">1</div>
+      </div>
+      <div class="pool-line" style="font-style:italic; font-size:12px;">10 explodes — bonus player d10:</div>
+      <div class="dice-row">
+        <div class="die player boom">10</div>
+        <div class="die exploded hit">6</div>
+        <div class="die-sep">← hit!</div>
+      </div>
+      <div class="pool-line">Control dice:</div>
+      <div class="dice-row">
+        <div class="die control hit">8</div>
+        <div class="die control hit">7</div>
+        <div class="die control hit">6</div>
+        <div class="die control cancel">1</div>
+        <div class="die control">4</div>
+        <div class="die control">3</div>
+        <div class="die control">2</div>
+      </div>
+      <div class="pool-line" style="margin-top:8px;">Player hits before cancellation: 4 (10, 9, 7, exploded 6)</div>
+      <div class="pool-line">Control 1 cancels one player hit → Player hits: <strong>3</strong> · Control hits: <strong>3</strong> (8, 7, 6) · Total: <strong>6</strong></div>
+      <div class="pool-line">Meets CR 4 ✓ · Player hits (3) tie Control hits (3) — ties favor the player ✓ · Extra hits beyond CR: <strong>2</strong></div>
+      <div class="result-line success"><span class="result-tag">Straight Success</span> Ghost ghosts through. The biometric sweep pings a partial match, then drops it as noise. 2 hits beyond the CR bank as 2 white Advantage dice. Drive earned.</div>
+    </div>
+
+    <div class="advantage-block">
+      <span class="adv-tag">Advantage · 2 white d10</span>
+      "Read the Building's Rhythm" — banked by Ghost, available to her or any ally for a later roll.
+    </div>
+
+    <div class="beat"><span class="speaker gm">GM</span><span class="quote">The sweep logs it and drops it. The guard passes two metres from you, mutters something about a false positive into his earpiece, and keeps moving. You're clear.</span></div>
+
+    <div class="token-tracker">
+      <div class="tt-item"><strong>Drive (Ghost)</strong>●●●● 4 ← Straight Success</div>
+      <div class="tt-item"><strong>Drive (Cipher)</strong>●●● 3</div>
+      <div class="tt-item"><strong>Drive (Sable)</strong>●● 2</div>
+      <div class="tt-item"><strong>GM Control</strong>●●●● 4</div>
+    </div>
+  </div>
+
+  <hr class="scene-divider">
+
+  <!-- ══════════════════════════════════════════════ SCENE 4 ══ -->
+  <div class="scene">
+    <div class="scene-header">
+      <span class="scene-number">Scene 04</span>
+      <span class="scene-title">The Vault Door</span>
+    </div>
+
+    <p class="narration">Ghost reaches the anteroom. The vault: an Axiom-grade Type-7 quantum lock. Cipher pushes his deck hard from the ramen booth across the plaza.</p>
+
+    <div class="beat"><span class="speaker cipher">Cipher</span><span class="quote">This is exactly what my Knack is for. I helped write the original lock protocols. Academics and Careful.</span></div>
+
+    <div class="beat"><span class="speaker gm">GM</span><span class="quote">The Type-7 was patched eight months ago after a competitor breach. Your old backdoor is gone — but your architectural knowledge means you know where to look for new seams. This is the hardest door in the building.</span></div>
+
+    <div class="mech-block">
+      <div class="mech-label">Overcome — Cipher cracks the quantum vault lock</div>
+      <div class="mech-action">Cipher: High Concept 1d10 + Knack 1d10 + Academics 2d10 + Careful 2d10 = 6 player d10</div>
+      <div class="dc-rationale">CR reasoning: cracking quantum-grade corporate encryption is elite-tier even for skilled hackers. <strong>CR 5 (Hard)</strong> — the ceiling of the Overcome range. The handbook is explicit that CRs shouldn't go higher than this; tasks that feel harder than a 5 are meant to be tackled with banked Advantage, not a steeper CR. The team only built one Advantage die so far (the Dead Zone, already spent), which is part of why this is going to hurt.</div>
+      <div class="pool-line">Control dice added: <strong>5d10</strong> · Total pool: 6 player + 5 control</div>
+
+      <div class="section-label" style="margin-top:10px;">Roll</div>
+      <div class="pool-line">Player dice:</div>
+      <div class="dice-row">
+        <div class="die player hit">7</div>
+        <div class="die player">5</div>
+        <div class="die player">4</div>
+        <div class="die player">3</div>
+        <div class="die player">3</div>
+        <div class="die player">2</div>
+      </div>
+      <div class="pool-line">Control dice:</div>
+      <div class="dice-row">
+        <div class="die control hit">9</div>
+        <div class="die control hit">8</div>
+        <div class="die control hit">6</div>
+        <div class="die control cancel">1</div>
+        <div class="die control">4</div>
+      </div>
+      <div class="pool-line" style="margin-top:8px;">Player hits before cancellation: 1 (the 7)</div>
+      <div class="pool-line">Control 1 cancels it → Player hits: <strong>0</strong> · Control hits: <strong>3</strong> · Total: <strong>3</strong></div>
+      <div class="pool-line">Does not meet CR 5 ✗ · Control hits (3) exceed Player hits (0)</div>
+      <div class="result-line crit-fail"><span class="result-tag">Critical Failure</span> The lock rejects the handshake. An intrusion flag trips in Axiom's NOC. GM gains a Control token.</div>
+    </div>
+
+    <div class="spotlight-block">
+      <div class="sp-label">Spotlight shifts to GM — Critical Failure</div>
+      Critical Failure transfers Spotlight and lets the GM escalate beyond a plain failure.
+    </div>
+
+    <div class="beat"><span class="speaker gm">GM</span><span class="quote">Two-second delay. Then every light on floor 14 turns red. A recorded voice: "Unauthorised access detected. Security response initiated." Ghost — three floors below you, two armed response guards are stepping off the elevator. Cipher, your deck connection is live but the lock is in active lockdown. Sable, the lobby guard's earpiece just went loud. He's turning around.</span></div>
+
+    <div class="token-spend">
+      <div class="ts-label">GM spends 1 Control token</div>
+      The response team arrives early — cashing in the scraped sensor from Scene 1, which flagged Ghost's floor as a secondary priority zone. The GM was holding this; now is the moment.
+    </div>
+
+    <div class="token-tracker">
+      <div class="tt-item"><strong>Drive (Ghost)</strong>●●●● 4</div>
+      <div class="tt-item"><strong>Drive (Cipher)</strong>●●● 3</div>
+      <div class="tt-item"><strong>Drive (Sable)</strong>●● 2</div>
+      <div class="tt-item"><strong>GM Control</strong>●●●● 4 ← gained 1 (CritFail), spent 1 (sensor seed)</div>
+    </div>
+  </div>
+
+  <hr class="scene-divider">
+
+  <!-- ══════════════════════════════════════════════ SCENE 5 ══ -->
+  <div class="scene">
+    <div class="scene-header">
+      <span class="scene-number">Scene 05</span>
+      <span class="scene-title">Corridor Fight</span>
+    </div>
+
+    <p class="narration">Two Axiom response guards — heavy, tactical vests, submachine guns — emerge from the stairwell one floor below Ghost. Ghost has the high ground and one second of surprise. She takes it.</p>
+
+    <div class="beat"><span class="speaker ghost">Ghost</span><span class="quote">I drop from the ceiling strut onto the lead guard. Fight and Quick. Knack applies — shadows, surprise, exactly her thing.</span></div>
+
+    <div class="mech-block">
+      <div class="mech-label">Attack — Ghost ambushes the lead guard</div>
+      <div class="mech-action">Ghost: High Concept 1d10 + Knack 1d10 + Fight 2d10 + Quick 2d10 = 6 player d10</div>
+      <div class="dc-rationale">CR reasoning: would Bob from accounting stand a chance against a trained, armed guard in tactical gear? Not even slightly. That's not a Standard task, that's a Challenging one — the same tier as scaling the tower exterior. <strong>CR 4 (Challenging)</strong>. Ghost's surprise and combat training are already baked into her six-die pool, not into a discount on the guard's CR.</div>
+      <div class="pool-line">Control dice added: <strong>4d10</strong> · Total pool: 6 player + 4 control</div>
+
+      <div class="section-label" style="margin-top:10px;">Roll</div>
+      <div class="pool-line">Player dice:</div>
+      <div class="dice-row">
+        <div class="die player hit">10</div>
+        <div class="die player hit">9</div>
+        <div class="die player hit">8</div>
+        <div class="die player hit">7</div>
+        <div class="die player">2</div>
+        <div class="die player">1</div>
+      </div>
+      <div class="pool-line" style="font-style:italic; font-size:12px;">10 explodes — bonus player d10:</div>
+      <div class="dice-row">
+        <div class="die player boom">10</div>
+        <div class="die exploded">3</div>
+        <div class="die-sep">← no additional hit</div>
+      </div>
+      <div class="pool-line">Control dice:</div>
+      <div class="dice-row">
+        <div class="die control hit">6</div>
+        <div class="die control">4</div>
+        <div class="die control">3</div>
+        <div class="die control">2</div>
+      </div>
+      <div class="pool-line" style="margin-top:8px;">Player hits: <strong>4</strong> (10, 9, 8, 7) · Control hits: <strong>1</strong> (6) · Total: <strong>5</strong></div>
+      <div class="pool-line">Meets CR 4 ✓ · Player hits (4) exceed Control hits (1) ✓ · Extra hits beyond CR: <strong>1</strong></div>
+      <div class="result-line success"><span class="result-tag">Straight Success</span> On an Attack, extra hits can become damage, banked Advantage, or a split of both — Ghost's call. She takes all of it as damage: 1 base + 1 extra = 2 damage. Drive earned.</div>
+    </div>
+
+    <div class="beat"><span class="speaker gm">GM</span><span class="quote">You come down like a hammer. The guard goes into the wall, weapon clattering. He's carrying a Consequence now. What do you give him?</span></div>
+
+    <div class="beat"><span class="speaker ghost">Ghost</span><span class="quote">"Dislocated Shoulder." He's not raising that gun arm again.</span></div>
+
+    <div class="rule-note">NPCs never roll player dice — their entire presence in a scene is the control dice their CR contributes. So a Consequence on an NPC can't "subtract a player die" the way it does for a PC; it has to come off the only number an NPC has. A Consequence lowers the NPC's CR by its rating for as long as it applies.</div>
+
+    <div class="consequence-block">
+      <span class="con-tag">NPC Consequence · Rating 1</span>
+      Guard Alpha: "Dislocated Shoulder" — his CR drops by 1 for any future roll against him that requires his primary arm.
+    </div>
+
+    <div class="beat"><span class="speaker gm">GM</span><span class="quote">The second guard opens up with the SMG. Ghost, Defend.</span></div>
+
+    <div class="beat"><span class="speaker ghost">Ghost</span><span class="quote">Athletics and Quick. Rolling away behind a server rack.</span></div>
+
+    <div class="mech-block">
+      <div class="mech-label">Defend — Ghost evades automatic fire</div>
+      <div class="mech-action">Ghost: High Concept 1d10 + Athletics 2d10 + Quick 2d10 = 5 player d10</div>
+      <div class="dc-rationale">CR reasoning: would Bob from accounting dodge a trained guard's full-auto burst at close range? No — same "definitely not" tier as the ambush a moment ago. <strong>CR 4 (Challenging)</strong>.</div>
+      <div class="pool-line">Control dice added: <strong>4d10</strong> · Total pool: 5 player + 4 control</div>
+
+      <div class="section-label" style="margin-top:10px;">Roll</div>
+      <div class="pool-line">Player dice:</div>
+      <div class="dice-row">
+        <div class="die player hit">8</div>
+        <div class="die player">5</div>
+        <div class="die player">4</div>
+        <div class="die player">3</div>
+        <div class="die player">2</div>
+      </div>
+      <div class="pool-line">Control dice:</div>
+      <div class="dice-row">
+        <div class="die control hit">9</div>
+        <div class="die control hit">7</div>
+        <div class="die control hit">6</div>
+        <div class="die control">2</div>
+      </div>
+      <div class="pool-line" style="margin-top:8px;">Player hits: <strong>1</strong> · Control hits: <strong>3</strong> · Total: <strong>4</strong></div>
+      <div class="pool-line">Meets CR 4 ✓ · But Control hits (3) exceed Player hits (1)</div>
+      <div class="result-line success-cost"><span class="result-tag">Success at a Cost</span> Ghost rolls clear but catches a fragment. GM gains a Control token. She can take damage to Health, or absorb it as a Consequence instead.</div>
+    </div>
+
+    <div class="beat"><span class="speaker ghost">Ghost</span><span class="quote">Consequence. "Grazed Side" — rating 1. Keeps the Health pool clean, costs me later.</span></div>
+
+    <div class="consequence-block">
+      <span class="con-tag">Consequence · Rating 1</span>
+      Ghost: "Grazed Side" — subtracts 1 player die from Athletics or full-exertion rolls until treated. (Her Health pool, anchored by Physique 2 → 5 boxes, stays untouched for now.)
+    </div>
+
+    <div class="spotlight-block">
+      <div class="sp-label">Spotlight returns to players</div>
+      Ghost defended. The GM's action resolves. Players choose who acts next.
+    </div>
+
+    <div class="token-tracker">
+      <div class="tt-item"><strong>Drive (Ghost)</strong>●●●●● 5 ← Straight Success</div>
+      <div class="tt-item"><strong>Drive (Cipher)</strong>●●● 3</div>
+      <div class="tt-item"><strong>Drive (Sable)</strong>●● 2</div>
+      <div class="tt-item"><strong>GM Control</strong>●●●●● 5 ← gained on SaaC</div>
+    </div>
+  </div>
+
+  <hr class="scene-divider">
+
+  <!-- ══════════════════════════════════════════════ SCENE 6 ══ -->
+  <div class="scene">
+    <div class="scene-header">
+      <span class="scene-number">Scene 06</span>
+      <span class="scene-title">The Data Pull</span>
+    </div>
+
+    <p class="narration">Ghost pins the injured guard. Sable has gone quiet in the lobby stairwell. The vault door is still locked. Cipher has thirty seconds before the NOC dispatches a second wave.</p>
+
+    <div class="beat"><span class="speaker cipher">Cipher</span><span class="quote">Going again — I know where the new patch sits now. Routing around it through the legacy HVAC layer. Same pool.</span></div>
+
+    <div class="mech-block">
+      <div class="mech-label">Overcome (retry) — Cipher routes around the patched lock</div>
+      <div class="mech-action">Cipher: High Concept 1d10 + Knack 1d10 + Academics 2d10 + Careful 2d10 = 6 player d10</div>
+      <div class="dc-rationale">Still CR 5 (Hard). The vault's security posture has only tightened since the alarm tripped — the failed attempt taught Cipher technique, not made the lock easier.</div>
+      <div class="pool-line">Control dice added: <strong>5d10</strong> · Total pool: 6 player + 5 control</div>
+
+      <div class="section-label" style="margin-top:10px;">Roll</div>
+      <div class="pool-line">Player dice:</div>
+      <div class="dice-row">
+        <div class="die player hit">9</div>
+        <div class="die player hit">7</div>
+        <div class="die player">5</div>
+        <div class="die player">3</div>
+        <div class="die player">2</div>
+        <div class="die player">1</div>
+      </div>
+      <div class="pool-line">Control dice:</div>
+      <div class="dice-row">
+        <div class="die control hit">8</div>
+        <div class="die control hit">8</div>
+        <div class="die control hit">7</div>
+        <div class="die control">4</div>
+        <div class="die control">3</div>
+      </div>
+      <div class="pool-line" style="margin-top:8px;">Player hits: <strong>2</strong> (9, 7) · Control hits: <strong>3</strong> (8, 8, 7) · Total: <strong>5</strong></div>
+      <div class="pool-line">Meets CR 5 exactly ✓ · But Control hits (3) exceed Player hits (2) — heading toward Success at a Cost.</div>
+    </div>
+
+    <div class="drive-spend">
+      <div class="ds-label">Cipher spends 1 Drive token — rerolls the 1, before announcing the result</div>
+      The rerolled die comes up a <strong>6</strong> — a hit. Player hits rise to 3. Player hits (3) now equal Control hits (3) — and ties always favor the player. Total hits also rise to 6, one beyond the CR.
+    </div>
+
+    <div class="result-line success" style="margin: 8px 16px;"><span class="result-tag">Straight Success (final, after reroll)</span> Project LAZARUS data fully extracted. The single extra hit banks a white Advantage die. Drive earned — net zero spend for Cipher this roll.</div>
+
+    <div class="advantage-block">
+      <span class="adv-tag">Advantage · 1 white d10</span>
+      "Insider Route" — banked by Cipher, unused for the rest of the session.
+    </div>
+
+    <div class="beat"><span class="speaker gm">GM</span><span class="quote">The door clicks. Inside: the data terminal, glowing, waiting. But getting through triggered a confirmation ping to the NOC. Four minutes before they lock you out remotely. Move.</span></div>
+
+    <div class="token-tracker">
+      <div class="tt-item"><strong>Drive (Ghost)</strong>●●●●● 5</div>
+      <div class="tt-item"><strong>Drive (Cipher)</strong>●●● 3 (spent 1, regained 1)</div>
+      <div class="tt-item"><strong>Drive (Sable)</strong>●● 2</div>
+      <div class="tt-item"><strong>GM Control</strong>●●●●● 5</div>
+    </div>
+  </div>
+
+  <hr class="scene-divider">
+
+  <!-- ══════════════════════════════════════════════ SCENE 7 ══ -->
+  <div class="scene">
+    <div class="scene-header">
+      <span class="scene-number">Scene 07</span>
+      <span class="scene-title">Deviation</span>
+    </div>
+
+    <p class="narration">Sable has been silent on comms. As Ghost moves back toward the elevator, Sable's voice comes through — quiet, and different.</p>
+
+    <div class="beat"><span class="speaker sable">Sable</span><span class="quote">Before we exfil. The building schematics showed a holding facility on floor 19. My Trouble. "My Daughter Is Somewhere in That Building." I'm going there.</span></div>
+
+    <div class="beat"><span class="speaker ghost">Ghost</span><span class="quote">(over comms) Mira. We have four minutes. Maybe three now.</span></div>
+
+    <div class="beat"><span class="speaker sable">Sable</span><span class="quote">I know. Trouble applies — I accept the control dice.</span></div>
+
+    <div class="trouble-trigger">
+      <div class="tt-label">Trouble chosen voluntarily — "My Daughter Is Somewhere in That Building"</div>
+      Sable's High Concept die is still rolled as always; Trouble adds 2 control dice on top of it rather than replacing anything. Knack and Trouble can't both apply on the same roll, so her favors-network contact stays narration only this time — Trouble is what's mechanically live here.
+    </div>
+
+    <div class="mech-block">
+      <div class="mech-label">Overcome — Sable reaches the 19th floor holding facility</div>
+      <div class="mech-action">Sable: High Concept 1d10 + Contacts 2d10 + Flashy 2d10 = 5 player d10</div>
+      <div class="dc-rationale">CR reasoning: accessing a restricted floor during an active lockdown alert. <strong>CR 4 (Challenging)</strong> on its own — and then Trouble piles on top.</div>
+      <div class="pool-line">Control dice: <strong>4</strong> (CR) + <strong>2</strong> (Trouble) = <strong>6 control d10</strong></div>
+      <div class="pool-line">Total pool: 5 player + 6 control</div>
+
+      <div class="section-label" style="margin-top:10px;">Roll</div>
+      <div class="pool-line">Player dice:</div>
+      <div class="dice-row">
+        <div class="die player hit">8</div>
+        <div class="die player">5</div>
+        <div class="die player">4</div>
+        <div class="die player">2</div>
+        <div class="die player">1</div>
+      </div>
+      <div class="pool-line">Control dice:</div>
+      <div class="dice-row">
+        <div class="die control hit">9</div>
+        <div class="die control hit">8</div>
+        <div class="die control hit">7</div>
+        <div class="die control">4</div>
+        <div class="die control">3</div>
+        <div class="die control">2</div>
+      </div>
+      <div class="pool-line" style="margin-top:8px;">Player hits: <strong>1</strong> (the 8) · Control hits: <strong>3</strong> (9, 8, 7) · Total: <strong>4</strong></div>
+      <div class="pool-line">Meets CR 4 ✓ · Control hits (3) exceed Player hits (1)</div>
+      <div class="result-line success-cost"><span class="result-tag">Success at a Cost</span> She finds her daughter. The exfil route is compromised. GM gains a Control token.</div>
+    </div>
+
+    <div class="beat"><span class="speaker gm">GM</span><span class="quote">You badge through the 19th floor security door. The room beyond is dim — four beds, three empty, one not. She's there. Sedated but breathing. But getting here logged an access event contradicting the lockdown protocol. The elevator you planned for exfil just got locked to the lobby. Your only way out is the maintenance shaft on 14 — eight floors down on foot, with an unconscious teenager.</span></div>
+
+    <div class="beat"><span class="speaker sable">Sable</span><span class="quote">Worth it. Let's move.</span></div>
+
+    <div class="spotlight-block">
+      <div class="sp-label">Spotlight shifts to GM — Success at a Cost</div>
+      The compromised route becomes the final obstacle. The last scene is a chase to the maintenance shaft under escalating pressure.
+    </div>
+
+    <div class="token-tracker">
+      <div class="tt-item"><strong>Drive (Ghost)</strong>●●●●● 5</div>
+      <div class="tt-item"><strong>Drive (Cipher)</strong>●●● 3</div>
+      <div class="tt-item"><strong>Drive (Sable)</strong>●● 2</div>
+      <div class="tt-item"><strong>GM Control</strong>●●●●●● 6 ← gained on SaaC</div>
+    </div>
+  </div>
+
+  <hr class="scene-divider">
+
+  <!-- ══════════════════════════════════════════════ SCENE 8 ══ -->
+  <div class="scene">
+    <div class="scene-header">
+      <span class="scene-number">Scene 08</span>
+      <span class="scene-title">Extraction</span>
+    </div>
+
+    <p class="narration">All three are moving. Ghost leads. Sable carries her daughter. Cipher talks them through the building's nerve system from his booth across the plaza. A four-person response team is three floors behind and closing.</p>
+
+    <div class="beat"><span class="speaker gm">GM</span><span class="quote">Group Overcome. One roll per player, CR 4 for everyone. Anyone who falls short creates a complication the others have to deal with.</span></div>
+
+    <div class="mech-block">
+      <div class="mech-label">Group Overcome — the escape run</div>
+
+      <div class="pool-line" style="font-weight:500; margin-bottom:4px;">Ghost — Athletics + Sneaky (Grazed Side consequence active; spends 1 of her 2 banked Advantage dice)</div>
+      <div class="dc-rationale">CR 4: sprinting through a locked-down building under armed pursuit.</div>
+      <div class="pool-line">Pool: HC 1d10 + Athletics 2d10 + Sneaky 2d10 − 1 (Consequence) + 1 (banked Advantage) = <strong>5 player d10</strong> + 4 control d10</div>
+      <div class="dice-row">
+        <div class="die player hit">9</div>
+        <div class="die player hit">8</div>
+        <div class="die player hit">7</div>
+        <div class="die player">5</div>
+        <div class="die advantage">5</div>
+        <div class="die-sep">← banked Advantage die</div>
+      </div>
+      <div class="dice-row">
+        <div class="die-sep">vs</div>
+        <div class="die control hit">6</div>
+        <div class="die control">5</div>
+        <div class="die control">3</div>
+        <div class="die control">2</div>
+      </div>
+      <div class="result-line success" style="margin-bottom:14px;"><span class="result-tag">Ghost — Straight Success</span> Player hits 3, Control hits 1, meets CR 4 exactly. Drive earned. One of her two banked Advantage dice remains.</div>
+
+      <div class="pool-line" style="font-weight:500; margin-bottom:4px;">Cipher — navigating remotely through the maintenance API</div>
+      <div class="dc-rationale">CR 4: real-time route-finding under active countermeasures, without the luxury of Careful preparation he had earlier.</div>
+      <div class="pool-line">Pool: HC 1d10 + Academics 2d10 + Careful 2d10 = <strong>5 player d10</strong> + 4 control d10</div>
+      <div class="dice-row">
+        <div class="die player hit">7</div>
+        <div class="die player">5</div>
+        <div class="die player">4</div>
+        <div class="die player">3</div>
+        <div class="die player">1</div>
+        <div class="die-sep">vs</div>
+        <div class="die control hit">8</div>
+        <div class="die control">5</div>
+        <div class="die control">4</div>
+        <div class="die control">2</div>
+      </div>
+      <div class="pool-line">Player hits: 1 (7) · Control hits: 1 (8) · Total: 2 · Does not meet CR 4 ✗</div>
+      <div class="pool-line">Player hits (1) meet/exceed Control hits (1) → ties favor the player → Failure, not Critical Failure.</div>
+      <div class="result-line failure" style="margin-bottom:14px;"><span class="result-tag">Cipher — Failure</span> Misreads a floor label. Sends the group one corridor west of where they need to be. No Control token to the GM — Failure alone doesn't grant one.</div>
+
+      <div class="pool-line" style="font-weight:500; margin-bottom:4px;">Sable — carrying her sedated daughter; spends Ghost's remaining banked Advantage die</div>
+      <div class="dc-rationale">CR 4: hauling another person through a building in lockdown, on Forceful alone — Sable has no Athletics.</div>
+      <div class="pool-line">Pool: HC 1d10 + Forceful 2d10 + 1 (banked Advantage, shared from Ghost) = <strong>4 player d10</strong> + 4 control d10</div>
+      <div class="dice-row">
+        <div class="die player hit">10</div>
+        <div class="die player hit">8</div>
+        <div class="die player">5</div>
+        <div class="die advantage">3</div>
+        <div class="die-sep">← shared Advantage die</div>
+      </div>
+      <div class="pool-line" style="font-style:italic; font-size:12px;">10 explodes — bonus player d10:</div>
+      <div class="dice-row">
+        <div class="die player boom">10</div>
+        <div class="die exploded hit">7</div>
+        <div class="die-sep">← hit!</div>
+      </div>
+      <div class="dice-row">
+        <div class="die-sep">vs</div>
+        <div class="die control hit">6</div>
+        <div class="die control">4</div>
+        <div class="die control">3</div>
+        <div class="die control">2</div>
+      </div>
+      <div class="pool-line">Player hits: 3 (10, 8, exploded 7) · Control hits: 1 (6) · Total: 4 — meets CR 4 exactly.</div>
+      <div class="result-line success" style="margin-bottom:6px;"><span class="result-tag">Sable — Straight Success</span> Sheer will, and a borrowed die. First Drive token of the night for Sable.</div>
+    </div>
+
+    <div class="advantage-block">
+      <span class="adv-tag">Shared Advantage in action</span>
+      Per the handbook, banked Advantage is a table resource, not a personal one — "available to anyone who can plausibly use it." Both of Ghost's banked dice from Scene 3 get spent here: one on her own roll, one handed to Sable.
+    </div>
+
+    <div class="beat"><span class="speaker gm">GM</span><span class="quote">Cipher, you misread a floor label. You're one corridor west of the shaft entrance, and now you can hear boots on the floor above you. Ghost, you catch the error in real time. Cipher sees it on his map a second later. Twelve seconds burned.</span></div>
+
+    <div class="beat"><span class="speaker ghost">Ghost</span><span class="quote">Pulling Cipher's feed and reading the schematics myself. Investigate and Quick.</span></div>
+
+    <div class="mech-block">
+      <div class="mech-label">Overcome (follow-up) — Ghost corrects course</div>
+      <div class="mech-action">Ghost: High Concept 1d10 + Investigate 1d10 + Quick 2d10 = 4 player d10</div>
+      <div class="dc-rationale">CR reasoning: a quick correction under pressure, not a dramatic obstacle in its own right. <strong>CR 2 (Easy)</strong>.</div>
+      <div class="pool-line">Control dice added: <strong>2d10</strong></div>
+      <div class="dice-row">
+        <div class="die player hit">8</div>
+        <div class="die player">4</div>
+        <div class="die player">3</div>
+        <div class="die player cancel">1</div>
+        <div class="die-sep">vs</div>
+        <div class="die control">5</div>
+        <div class="die control">3</div>
+      </div>
+      <div class="pool-line">Player hits: 1 (8) · Control hits: 0 · Total: 1 — does not meet CR 2 ✗</div>
+      <div class="drive-spend" style="margin: 8px 0 6px;">
+        <div class="ds-label">Ghost spends 1 Drive token — rerolls the 1, before announcing the result</div>
+        Rerolled die: <strong>7</strong> — a hit. Player hits rise to 2, meeting CR 2.
+      </div>
+      <div class="result-line success"><span class="result-tag">Straight Success (final)</span> Ghost has them. The twelve seconds are recovered. Drive earned right back.</div>
+    </div>
+
+    <div class="beat"><span class="speaker gm">GM</span><span class="quote">You tumble into the maintenance shaft. Ghost goes first. Sable hands her daughter down. Sable follows. Cipher sends the "clear" ping and starts packing his deck. Eight floors of ladder. A service door. An alley. Sable's waiting van. The response team reaches the shaft hatch thirty seconds after you've sealed it from below. They try to open it. It doesn't open.</span></div>
+
+    <p class="narration">Quiet. Then Cipher, soft and a little stunned:</p>
+
+    <div class="beat"><span class="speaker cipher">Cipher</span><span class="quote">We have it. We have everything they need to bring Axiom down. Project LAZARUS. All of it.</span></div>
+
+    <p class="narration">The van pulls into the sprawl. Ghost presses her hand over her side. Sable holds her daughter's hand. Cipher stares at the chip.</p>
+
+    <div class="beat"><span class="speaker gm">GM</span><span class="quote">Last question, Cipher. You jacked directly into Axiom's internal network tonight. Your Trouble is "Axiom Corp Has a Bounty on My Neural Chip." Do you think they got a ping on your neural signature?</span></div>
+
+    <div class="beat"><span class="speaker cipher">Cipher</span><span class="quote">...probably. But we got what we came for. And we got something we didn't plan for.</span></div>
+
+    <div class="beat"><span class="speaker sable">Sable</span><span class="quote">Yeah. We did.</span></div>
+
+    <p class="narration" style="text-align:center; margin-top:2rem;">— End of Session —</p>
+
+    <div class="token-tracker">
+      <div class="tt-item"><strong>Drive (Ghost)</strong>●●●●●● 6</div>
+      <div class="tt-item"><strong>Drive (Cipher)</strong>●●● 3</div>
+      <div class="tt-item"><strong>Drive (Sable)</strong>●●● 3</div>
+      <div class="tt-item"><strong>GM Control</strong>●●●●●● 6</div>
+    </div>
+  </div>
+
+  <hr class="scene-divider">
+
+  <!-- ══════════════════════════════════════════════ NOTES ══ -->
+  <div class="designer-note">
+    <span class="dn-label">Designer Notes — Mechanics per the Published Handbook</span>
+
+    <p><span class="dn-item-label">High Concept is always rolled.</span> The earlier draft had Trouble replace the High Concept die. The published handbook is explicit that Knack and Trouble only ever add to High Concept — they never replace it. This shows up most clearly in Scenes 3 and 7: Trouble piles 2 control dice on top of a pool that still includes HC, rather than swapping anything out. It's a small change in wording but a real change in the math — every Trouble-driven roll in this transcript has one more player die in it than the earlier version did.</p>
+
+    <p><span class="dn-item-label">CR is a fact about the task, not about the character attempting it.</span> An earlier pass set Cipher's camera-loop CR at 3 instead of 4, reasoning that his Knack made the task easier for him specifically. That's backwards — the "could an average person do this" test is supposed to produce the same CR regardless of who's rolling. Competence lives entirely in the dice pool (HC + Knack + Skill + Approach); the CR should never flex downward because the GM knows the character is good at this. Scene 5's ambush roll models the fix directly — Ghost's surprise and combat training show up as a fat six-die pool, while the CR is set purely on "could Bob survive a fight with an armed, trained guard." That's the pattern to repeat: build the case for the CR as if the GM doesn't know who's about to roll.</p>
+
+    <p><span class="dn-item-label">A second pass on the same mistake, in the opposite direction.</span> Combat against a trained, armed guard was originally set at CR 3 (Standard) twice in this transcript — once for Ghost's ambush, once for sneaking past the second guard. Running both through Bob-from-Accounting cleanly: would Bob survive a fight with an armed, trained guard, or slip past one on alert? No, not even a little. A clear "no" for an average person belongs at CR 4 or 5, the same tier as the tower climb — not CR 3, which should be reserved for tasks an average person could plausibly scrape through with effort. Both rolls are now CR 4 in this version, with the dice rebalanced to land on the same outcomes. The corrected rule of thumb: if the honest answer to "could Bob do this" is an unambiguous no, the CR has to say so — 3 is for genuinely contestable tasks, not a default setting for "fight" or "sneak."</p>
+
+    <p><span class="dn-item-label">NPC Consequences come off the CR, not a player-die pool that doesn't exist.</span> An earlier draft described Guard Alpha's "Dislocated Shoulder" as subtracting a player die from his contribution — but NPCs never roll player dice in the first place; their entire presence in a scene is the control dice their CR contributes. A Consequence on an NPC has to lower that CR by its rating instead, the mirror image of how a PC Consequence subtracts a player die. Worth stating directly in the handbook's NPC chapter, since the parallel isn't obvious until you try to write the wrong version down.</p>
+
+    <p><span class="dn-item-label">Create Advantage no longer exists as its own action.</span> What used to be a standalone move is now just the natural consequence of any Overcome roll: hits beyond the CR bank as an Advantage die, full stop. Cipher's camera loop in Scene 2 and Ghost's corridor slip in Scene 3 both demonstrate this — neither needed a special action type, just hits to spare on an ordinary roll. This is a cleaner system than having a fourth action category to remember.</p>
+
+    <p><span class="dn-item-label">Advantage dice are a shared table resource.</span> Scene 8 leans on this directly — Ghost banks 2 white dice from her Scene 3 success, then spends one on her own escape roll and hands the other to Sable for hers. The handbook's wording ("available to anyone at the table who can plausibly use it") makes this kind of cross-character spending legitimate, and it's a satisfying payoff for banking hits earlier instead of cashing them in immediately.</p>
+
+    <p><span class="dn-item-label">Drive only triggers on a Straight Success.</span> An earlier draft of this transcript mistakenly tied Drive gains to rolling a 10. The handbook ties it strictly to the outcome, not the dice that produced it — Ghost's Scene 1 success earned Drive despite no exploding dice at all, while several exploding 10s elsewhere produced no Drive when the outcome landed as a Cost or Failure instead.</p>
+
+    <p><span class="dn-item-label">Control tokens now explicitly trigger on both Success at a Cost and Critical Failure.</span> This transcript's GM ends the session at 6 Control tokens despite starting at 3 and spending one — the economy clearly favors the GM in a scenario this rich with costly successes. Four of the five player rolls that didn't land clean handed the GM a token. Worth watching at tables that run several sessions back to back, since nothing currently caps the GM's Control total either.</p>
+
+    <p><span class="dn-item-label">Open flag — Drive's missing cap is now very visible.</span> Ghost ends the one-shot holding 6 Drive tokens, having spent 2 and earned them straight back both times. The handbook itself flags this as unresolved ("no hard cap (yet)"). A single session producing this much accumulation suggests the cap conversation is worth having sooner rather than later, especially for characters built around frequent Straight Successes.</p>
+
+    <p><span class="dn-item-label">Open flag — banked Advantage dice and session boundaries.</span> Cipher's "Insider Route" Advantage die from Scene 6 goes unused for the rest of the session. The handbook doesn't say whether banked Advantage persists across sessions the way Drive explicitly does, or whether it's meant to evaporate at the table once the scene or session ends. Worth a ruling.</p>
+
+    <p><span class="dn-item-label">Open flag — group action rulings remain homebrew.</span> Scene 8's "everyone rolls, lowest result creates a complication" approach is still a GM interpretation, not a codified rule. It worked cleanly here, but a formal group-action rule would help GMs run this consistently rather than reinventing it each session.</p>
+  </div>
+
+</div>
+</body>
+</html>
